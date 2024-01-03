@@ -1,15 +1,14 @@
-import React from 'react';
-import Counter from './components/counter';
-import "./styles/App.css"
+import React from "react";
+import Counter from "./components/counter";
+import "./styles/App.css";
 
 function App() {
-
   return (
-    <div className='App'>
-      <Counter/>
-      <Counter/>
+    <div className="App">
+      <Counter />
+      <Counter />
     </div>
-  )
+  );
 }
 
 export default App;
