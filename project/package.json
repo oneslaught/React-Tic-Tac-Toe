@@ -14,7 +14,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "esbuild src/index.ts --bundle --outfile=Bundle.js --loader:.ts=tsx --format=cjs",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
