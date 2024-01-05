@@ -1,4 +1,5 @@
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import CopyPlugin from "copy-webpack-plugin";
 import path from "path";
 import { Configuration } from "webpack";
 import "webpack-dev-server";
@@ -29,6 +30,9 @@ const webpackConfig: Configuration = {
   plugins: [
     new HtmlWebpackPlugin({
       template: 'index.html',
+    }),
+    new CopyPlugin({
+      patterns: [{from: "public", to: "public"}],
     }),
   ],
   devServer: {
