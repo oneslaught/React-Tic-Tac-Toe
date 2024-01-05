@@ -1,17 +1,15 @@
+/* src/styles/App.css */
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
-
 .App {
   text-align: center;
 }
-
 h1 {
   color: #810905;
 }
-
 button {
   background: #ff4742;
   border: 1px solid #ff4742;
@@ -21,7 +19,12 @@ button {
   color: #ffffff;
   cursor: pointer;
   display: inline-block;
-  font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
+  font-family:
+    nunito,
+    roboto,
+    proxima-nova,
+    "proxima nova",
+    sans-serif;
   font-size: 16px;
   font-weight: 800;
   line-height: 16px;
@@ -37,14 +40,12 @@ button {
   touch-action: manipulation;
   vertical-align: middle;
 }
-
 button:hover,
 button:active {
   background-color: initial;
   background-position: 0 0;
   color: #ff4742;
 }
-
 button:active {
   opacity: 0.5;
 }
