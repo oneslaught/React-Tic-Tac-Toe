@@ -11,6 +11,10 @@ const webpackConfig: Configuration = {
     path: path.resolve(__dirname, "./dist"),
     filename: "bundle.js",
   },
+  performance: {
+    maxAssetSize: 512 * 1024,
+    maxEntrypointSize: 512 * 1024
+  },
   module: {
     rules: [
       {
@@ -20,7 +24,7 @@ const webpackConfig: Configuration = {
       },
 	  {
         test: /\.css$/i,
-        use: ["css-loader"],
+        use: ["style-loader", "css-loader"],
       },
     ],
   },
