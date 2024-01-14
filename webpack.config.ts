@@ -1,50 +1,50 @@
-import HtmlWebpackPlugin from "html-webpack-plugin";
 import CopyPlugin from "copy-webpack-plugin";
+import HtmlWebpackPlugin from "html-webpack-plugin";
 import path from "path";
 import { Configuration } from "webpack";
 import "webpack-dev-server";
 
 const webpackConfig: Configuration = {
-  mode: "production",
+  devServer: {
+    compress: true,
+    port: 9000,
+    static: {
+      directory: path.join(__dirname, "public"),
+    },
+  },
   entry: "./src/index.tsx",
-  output: {
-    path: path.resolve(__dirname, "./dist"),
-    filename: "[name].[contenthash].js",
-  },
-  performance: {
-    maxAssetSize: 512 * 1024,
-    maxEntrypointSize: 512 * 1024
-  },
+  mode: "production",
   module: {
     rules: [
       {
+        exclude: /node_modules/,
         test: /\.tsx?$/,
         use: "ts-loader",
-        exclude: /node_modules/,
       },
-	  {
+      {
         test: /\.css$/i,
         use: ["style-loader", "css-loader"],
       },
     ],
   },
-  resolve: {
-    extensions: [".tsx", ".ts", ".js"],
+  output: {
+    filename: "[name].[contenthash].js",
+    path: path.resolve(__dirname, "./dist"),
+  },
+  performance: {
+    maxAssetSize: 512 * 1024,
+    maxEntrypointSize: 512 * 1024,
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'index.html',
+      template: "index.html",
     }),
     new CopyPlugin({
-      patterns: [{from: "public", to: "public"}],
+      patterns: [{ from: "public", to: "public" }],
     }),
   ],
-  devServer: {
-    static: {
-      directory: path.join(__dirname, "public"),
-    },
-    compress: true,
-    port: 9000,
+  resolve: {
+    extensions: [".tsx", ".ts", ".js"],
   },
 };
 
