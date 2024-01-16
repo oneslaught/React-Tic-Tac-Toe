@@ -1,0 +1,10 @@
+.display {
+	margin-left: 20px;
+    margin-right: 20px;
+    flex-grow: 1;
+    display: grid;
+    text-align: center;
+    gap: 10px;
+    max-width: 400px;
+    max-height: 400px;
+}

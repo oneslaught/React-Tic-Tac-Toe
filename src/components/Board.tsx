@@ -1,5 +1,6 @@
 import React from "react";
 
+import board from "../styles/board.module.css";
 import calculateWinner from "./CalculateWinner";
 import Square from "./Square";
 interface BoardProps {
@@ -23,7 +24,7 @@ const Board: React.FC<BoardProps> = ({ onPlay, squares, xIsNext }) => {
   }
 
   return (
-    <>
+    <div className={`${board.display}`}>
       <div className="board-row">
         <Square
           onSquareClick={() => {
@@ -84,7 +85,7 @@ const Board: React.FC<BoardProps> = ({ onPlay, squares, xIsNext }) => {
           value={squares[8]}
         />
       </div>
-    </>
+    </div>
   );
 };
 
