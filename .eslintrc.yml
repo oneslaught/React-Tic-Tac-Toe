@@ -12,3 +12,5 @@ extends:
   - plugin:perfectionist/recommended-natural
 plugins:
   - unused-imports
+rules:
+  "@typescript-eslint/no-non-null-assertion": off
