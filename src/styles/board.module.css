@@ -1,8 +1,13 @@
-.display {
-	margin-left: 20px;
-    margin-right: 20px;
+.container {
     flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.display {
     display: grid;
+    grid-template-columns: repeat(3, 1fr);
     text-align: center;
     gap: 10px;
     max-width: 400px;

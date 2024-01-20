@@ -24,8 +24,8 @@ const Board: React.FC<BoardProps> = ({ onPlay, squares, xIsNext }) => {
   }
 
   return (
-    <div className={`${board.display}`}>
-      <div className="board-row">
+    <div className={`${board.container}`}>
+      <div className={`${board.display}`}>
         <Square
           onSquareClick={() => {
             handleClick(0);
@@ -44,8 +44,6 @@ const Board: React.FC<BoardProps> = ({ onPlay, squares, xIsNext }) => {
           }}
           value={squares[2]}
         />
-      </div>
-      <div className="board-row">
         <Square
           onSquareClick={() => {
             handleClick(3);
@@ -64,8 +62,6 @@ const Board: React.FC<BoardProps> = ({ onPlay, squares, xIsNext }) => {
           }}
           value={squares[5]}
         />
-      </div>
-      <div className="board-row">
         <Square
           onSquareClick={() => {
             handleClick(6);

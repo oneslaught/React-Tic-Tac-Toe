@@ -1,0 +1,14 @@
+.scale {
+	width: 126px;
+	height: 126px;
+	border-radius: 5px;
+	font-size: 80px;
+}
+
+.o {
+	color: rgb(254, 1, 154);
+}
+
+.x {
+	color: rgb(1, 154, 254);
+}

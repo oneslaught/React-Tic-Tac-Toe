@@ -15,10 +15,6 @@ export default function App() {
   }
 
   return (
-    <div className="game">
-      <div className="game-board">
-        <Board onPlay={handlePlay} squares={currentSquares} xIsNext={xIsNext} />
-      </div>
-    </div>
+    <Board onPlay={handlePlay} squares={currentSquares} xIsNext={xIsNext} />
   );
 }
