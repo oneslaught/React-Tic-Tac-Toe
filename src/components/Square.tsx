@@ -13,6 +13,7 @@ const Square: React.FC<SquareProps> = ({ onSquareClick, value }) => {
   return (
     <button
       className={`${square.scale} ${playerClass}`}
+      disabled={value !== null}
       onClick={onSquareClick}
     >
       {value}

@@ -1,14 +1,19 @@
 .scale {
-	width: 126px;
-	height: 126px;
-	border-radius: 5px;
-	font-size: 80px;
+  width: 126px;
+  height: 126px;
+  border-radius: 5px;
+  font-size: 80px;
+  cursor: pointer;
+}
+
+.scale:disabled {
+  background-color: #fff;
 }
 
 .o {
-	color: rgb(254, 1, 154);
+  color: rgb(254, 1, 154);
 }
 
 .x {
-	color: rgb(1, 154, 254);
+  color: rgb(1, 154, 254);
 }

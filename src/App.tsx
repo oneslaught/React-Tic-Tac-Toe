@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 
 import Board from "./components/Board";
+import ResetButton from "./components/ResetButton";
 import "./styles/app.css";
 
 export default function App() {
@@ -14,7 +15,15 @@ export default function App() {
     setXIsNext(!xIsNext);
   }
 
+  function handleReset() {
+    setHistory([Array(9).fill(null)]);
+    setXIsNext(true);
+  }
+
   return (
-    <Board onPlay={handlePlay} squares={currentSquares} xIsNext={xIsNext} />
+    <>
+      <Board onPlay={handlePlay} squares={currentSquares} xIsNext={xIsNext} />
+      <ResetButton onReset={handleReset} />
+    </>
   );
 }
