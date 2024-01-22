@@ -1,0 +1,77 @@
+.container {
+  height: 80px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.container ul {
+  display: flex;
+  padding: 0 20px 0 20px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 400px;
+}
+
+.container ul li {
+  width: 100px;
+  height: 60px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+    rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px) rotate(-5deg);
+  }
+  50% {
+    transform: translateX(5px) rotate(5deg);
+  }
+  75% {
+    transform: translateX(-5px) rotate(-5deg);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.x {
+  background-color: #019afe;
+  color: #fff;
+}
+
+.draw {
+  background-color: #d3d3d3;
+}
+
+.o {
+  background-color: #fe019a;
+  color: #fff;
+}
+
+.shake {
+  animation: shake 0.7s 1;
+}
+
+.elem p {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 0;
+  margin-top: 4px;
+  margin-bottom: 10px;
+}
+
+.elem span {
+  font-size: 20px;
+}
