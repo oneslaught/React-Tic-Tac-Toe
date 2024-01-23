@@ -40,7 +40,7 @@ export default function App() {
   return (
     <>
       <PlayerTurn />
-      <GameScore draws={0} oWins={0} xWins={0} />
+      <GameScore draws={draws} oWins={oWins} xWins={xWins} />
       <Board onPlay={handlePlay} squares={currentSquares} xIsNext={xIsNext} />
       <GameResults
         setShowResults={setShowResults}
