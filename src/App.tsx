@@ -18,14 +18,32 @@ export default function App() {
   const [oWins, setOWins] = useState(0);
   const [draws, setDraws] = useState(0);
 
+  const winAudio = new Audio("./assets/win_sound.ogg");
+  const drawAudio = new Audio("./assets/draw_sound.ogg");
+
+  function playWinSound() {
+    winAudio.play().catch((error) => {
+      console.error("Failed to play win sound:", error);
+    });
+  }
+
+  function playDrawSound() {
+    drawAudio.play().catch((error) => {
+      console.error("Failed to play draw sound:", error);
+    });
+  }
+
   function handlePlay(nextSquares: (null | string)[]) {
-    const winner = CalculateWinner(nextSquares); // Исправлено здесь
+    const winner = CalculateWinner(nextSquares);
     if (winner === "X") {
       setXWins(xWins + 1);
+      playWinSound();
     } else if (winner === "O") {
       setOWins(oWins + 1);
+      playWinSound();
     } else if (winner === "draw") {
       setDraws(draws + 1);
+      playDrawSound();
     }
     setHistory([...history, nextSquares]);
     setXIsNext(!xIsNext);
