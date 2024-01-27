@@ -27,12 +27,14 @@ export default function App() {
     winAudio.play().catch((error) => {
       console.error("Failed to play win sound:", error);
     });
+    winAudio.currentTime = 0;
   }
 
   function playDrawSound() {
     drawAudio.play().catch((error) => {
       console.error("Failed to play draw sound:", error);
     });
+    winAudio.currentTime = 0;
   }
 
   function playXSound() {
