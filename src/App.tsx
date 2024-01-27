@@ -18,8 +18,8 @@ export default function App() {
   const [oWins, setOWins] = useState(0);
   const [draws, setDraws] = useState(0);
 
-  const winAudio = new Audio("./assets/win_sound.ogg");
-  const drawAudio = new Audio("./assets/draw_sound.ogg");
+  const winAudio = new Audio("../public/assets/win_sound.ogg");
+  const drawAudio = new Audio("../public/assets/draw_sound.ogg");
 
   function playWinSound() {
     winAudio.play().catch((error) => {
