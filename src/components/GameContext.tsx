@@ -9,9 +9,11 @@ interface GameContextType {
   setHistory: React.Dispatch<React.SetStateAction<(null | string)[][]>>;
   setOWins: React.Dispatch<React.SetStateAction<number>>;
   setShowResults: React.Dispatch<React.SetStateAction<boolean>>;
+  setWinner: React.Dispatch<React.SetStateAction<null | string>>;
   setXIsNext: React.Dispatch<React.SetStateAction<boolean>>;
   setXWins: React.Dispatch<React.SetStateAction<number>>;
   showResults: boolean;
+  winner: null | string;
   xIsNext: boolean;
   xWins: number;
 }
@@ -30,6 +32,7 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({
   const [xWins, setXWins] = useState<number>(0);
   const [oWins, setOWins] = useState<number>(0);
   const [draws, setDraws] = useState<number>(0);
+  const [winner, setWinner] = useState<null | string>("");
 
   const contextValue: GameContextType = {
     currentSquares,
@@ -40,9 +43,11 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({
     setHistory,
     setOWins,
     setShowResults,
+    setWinner,
     setXIsNext,
     setXWins,
     showResults,
+    winner,
     xIsNext,
     xWins,
   };

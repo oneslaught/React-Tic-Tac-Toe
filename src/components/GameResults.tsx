@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import results from "../styles/game-results.module.css";
 import CalculateWinner from "./CalculateWinner";
+import { useGameContext } from "./GameContext";
 
 interface GameResultsProps {
   setShowResults: React.Dispatch<React.SetStateAction<boolean>>;
@@ -14,7 +15,7 @@ const GameResults: React.FC<GameResultsProps> = ({
   showResults,
   squares,
 }) => {
-  const [winner, setWinner] = useState<null | string>("");
+  const { setWinner, winner } = useGameContext();
   useEffect(() => {
     const result = CalculateWinner(squares);
     if (result) {
