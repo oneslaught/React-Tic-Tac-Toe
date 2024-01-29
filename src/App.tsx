@@ -1,8 +1,8 @@
 import React from "react";
-import { useState } from "react";
 
 import Board from "./components/Board";
 import CalculateWinner from "./components/CalculateWinner";
+import { useGameContext } from "./components/GameContext";
 import GameResults from "./components/GameResults";
 import GameScore from "./components/GameScore";
 import PlayerTurn from "./components/PlayerTurn";
@@ -15,13 +15,21 @@ const xAudio = new Audio("../public/assets/x_sound.ogg");
 const oAudio = new Audio("../public/assets/o_sound.ogg");
 
 export default function App() {
-  const [xIsNext, setXIsNext] = useState(true);
-  const [history, setHistory] = useState([Array(9).fill(null)]);
-  const currentSquares = history[history.length - 1] ?? Array(9).fill(null);
-  const [showResults, setShowResults] = useState(true);
-  const [xWins, setXWins] = useState(0);
-  const [oWins, setOWins] = useState(0);
-  const [draws, setDraws] = useState(0);
+  const {
+    currentSquares,
+    draws,
+    history,
+    oWins,
+    setDraws,
+    setHistory,
+    setOWins,
+    setShowResults,
+    setXIsNext,
+    setXWins,
+    showResults,
+    xIsNext,
+    xWins,
+  } = useGameContext();
 
   function playWinSound() {
     winAudio.play().catch((error) => {
