@@ -43,3 +43,8 @@
   transition: 0.2s ease-in-out;
   background-color: #019afe;
 }
+
+.oTurn {
+  left: 85px;
+  background-color: rgb(254, 1, 154);
+}
