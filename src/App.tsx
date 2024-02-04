@@ -23,6 +23,7 @@ export default function App() {
     setDraws,
     setHistory,
     setOWins,
+    setRemoveShake,
     setShowResults,
     setXIsNext,
     setXWins,
@@ -68,12 +69,15 @@ export default function App() {
     if (winner === "X") {
       setXWins(xWins + 1);
       playWinSound();
+      setRemoveShake(true);
     } else if (winner === "O") {
       setOWins(oWins + 1);
       playWinSound();
+      setRemoveShake(true);
     } else if (winner === "draw") {
       setDraws(draws + 1);
       playDrawSound();
+      setRemoveShake(true);
     }
     setHistory([...history, nextSquares]);
     setXIsNext(!xIsNext);
@@ -83,6 +87,7 @@ export default function App() {
     setHistory([Array(9).fill(null)]);
     setXIsNext(true);
     setShowResults(false);
+    setRemoveShake(false);
   }
 
   return (

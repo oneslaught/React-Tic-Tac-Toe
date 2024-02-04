@@ -5,9 +5,11 @@ interface GameContextType {
   draws: number;
   history: (null | string)[][];
   oWins: number;
+  removeShake: boolean;
   setDraws: React.Dispatch<React.SetStateAction<number>>;
   setHistory: React.Dispatch<React.SetStateAction<(null | string)[][]>>;
   setOWins: React.Dispatch<React.SetStateAction<number>>;
+  setRemoveShake: React.Dispatch<React.SetStateAction<boolean>>;
   setShowResults: React.Dispatch<React.SetStateAction<boolean>>;
   setWinner: React.Dispatch<React.SetStateAction<null | string>>;
   setXIsNext: React.Dispatch<React.SetStateAction<boolean>>;
@@ -33,15 +35,18 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({
   const [oWins, setOWins] = useState<number>(0);
   const [draws, setDraws] = useState<number>(0);
   const [winner, setWinner] = useState<null | string>("");
+  const [removeShake, setRemoveShake] = useState(true);
 
   const contextValue: GameContextType = {
     currentSquares,
     draws,
     history,
     oWins,
+    removeShake,
     setDraws,
     setHistory,
     setOWins,
+    setRemoveShake,
     setShowResults,
     setWinner,
     setXIsNext,
