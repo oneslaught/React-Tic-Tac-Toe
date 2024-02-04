@@ -87,7 +87,9 @@ export default function App() {
     setHistory([Array(9).fill(null)]);
     setXIsNext(true);
     setShowResults(false);
-    setRemoveShake(false);
+    setTimeout(() => {
+      setRemoveShake(false);
+    }, 700);
   }
 
   return (
