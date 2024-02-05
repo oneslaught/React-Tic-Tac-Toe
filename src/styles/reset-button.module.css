@@ -1,5 +1,12 @@
 .hidden {
   visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.7s;
+}
+
+.visible {
+  visibility: visible;
+  opacity: 1;
 }
 
 .container {
@@ -18,7 +25,6 @@
   text-transform: uppercase;
   cursor: pointer;
   position: relative;
-  transition: opacity 0.7s;
 }
 
 .reset::before {
