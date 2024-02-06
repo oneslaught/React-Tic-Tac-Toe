@@ -26,10 +26,10 @@ export default function App() {
     setRemoveShake,
     setShowButton,
     setShowResults,
-    setXIsNext,
+    setTurn,
     setXWins,
     showResults,
-    xIsNext,
+    turn,
     xWins,
   } = useGameContext();
 
@@ -62,9 +62,9 @@ export default function App() {
   function handlePlay(nextSquares: (null | string)[]) {
     const winner = CalculateWinner(nextSquares);
 
-    if (xIsNext) {
+    if (turn === "X") {
       playXSound();
-    } else {
+    } else if (turn === "O") {
       playOSound();
     }
     if (winner === "X") {
@@ -84,12 +84,12 @@ export default function App() {
       playDrawSound();
     }
     setHistory([...history, nextSquares]);
-    setXIsNext(!xIsNext);
+    setTurn(turn === "X" ? "O" : "X");
   }
 
   function handleReset() {
     setHistory([Array(9).fill(null)]);
-    setXIsNext(true);
+    setTurn("X");
     setShowResults(false);
     setTimeout(() => {
       setRemoveShake(false);
@@ -101,7 +101,7 @@ export default function App() {
     <>
       <PlayerTurn />
       <GameScore draws={draws} oWins={oWins} xWins={xWins} />
-      <Board onPlay={handlePlay} squares={currentSquares} xIsNext={xIsNext} />
+      <Board onPlay={handlePlay} squares={currentSquares} turn={turn} />
       <GameResults
         setShowResults={setShowResults}
         showResults={showResults}

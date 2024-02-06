@@ -6,18 +6,18 @@ import Square from "./Square";
 interface BoardProps {
   onPlay: (nextSquares: (null | string)[]) => void;
   squares: (null | string)[];
-  xIsNext: boolean;
+  turn: string;
 }
 
-const Board: React.FC<BoardProps> = ({ onPlay, squares, xIsNext }) => {
+const Board: React.FC<BoardProps> = ({ onPlay, squares, turn }) => {
   function handleClick(i: number) {
     if (calculateWinner(squares) ?? squares[i]) {
       return;
     }
     const nextSquares: (null | string)[] = squares.slice();
-    if (xIsNext) {
+    if (turn === "X") {
       nextSquares[i] = "X";
-    } else {
+    } else if (turn === "O") {
       nextSquares[i] = "O";
     }
     onPlay(nextSquares);

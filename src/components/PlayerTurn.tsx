@@ -1,17 +1,17 @@
 import React from "react";
 
-import turn from "../styles/player-turn.module.css";
+import turnClass from "../styles/player-turn.module.css";
 import { useGameContext } from "./GameContext";
 
 export default function PlayerTurn() {
-  const { xIsNext } = useGameContext();
+  const { turn } = useGameContext();
 
   return (
-    <div className={`${turn.container}`}>
+    <div className={`${turnClass.container}`}>
       <h3>Turn For</h3>
-      <div className={`${turn.turnBox} ${turn.align}`}>X</div>
-      <div className={`${turn.turnBox} ${turn.align}`}>O</div>
-      <div className={`${turn.bg} ${!xIsNext && turn.oTurn}`}></div>
+      <div className={`${turnClass.turnBox} ${turnClass.align}`}>X</div>
+      <div className={`${turnClass.turnBox} ${turnClass.align}`}>O</div>
+      <div className={`${turnClass.bg} ${!turn && turnClass.oTurn}`}></div>
     </div>
   );
 }

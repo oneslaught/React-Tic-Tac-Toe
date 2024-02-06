@@ -12,13 +12,13 @@ interface GameContextType {
   setRemoveShake: React.Dispatch<React.SetStateAction<boolean>>;
   setShowButton: React.Dispatch<React.SetStateAction<boolean>>;
   setShowResults: React.Dispatch<React.SetStateAction<boolean>>;
+  setTurn: React.Dispatch<React.SetStateAction<string>>;
   setWinner: React.Dispatch<React.SetStateAction<null | string>>;
-  setXIsNext: React.Dispatch<React.SetStateAction<boolean>>;
   setXWins: React.Dispatch<React.SetStateAction<number>>;
   showButton: boolean;
   showResults: boolean;
+  turn: string;
   winner: null | string;
-  xIsNext: boolean;
   xWins: number;
 }
 
@@ -27,7 +27,7 @@ const GameContext = createContext<GameContextType | undefined>(undefined);
 export const GameProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [xIsNext, setXIsNext] = useState<boolean>(true);
+  const [turn, setTurn] = useState<string>("X");
   const [history, setHistory] = useState<(null | string)[][]>([
     Array(9).fill(null),
   ]);
@@ -52,13 +52,13 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({
     setRemoveShake,
     setShowButton,
     setShowResults,
+    setTurn,
     setWinner,
-    setXIsNext,
     setXWins,
     showButton,
     showResults,
+    turn,
     winner,
-    xIsNext,
     xWins,
   };
 
