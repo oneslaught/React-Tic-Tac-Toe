@@ -44,19 +44,21 @@ export default function App() {
     drawAudio.play().catch((error) => {
       console.error("Failed to play draw sound:", error);
     });
-    winAudio.currentTime = 0;
+    drawAudio.currentTime = 0;
   }
 
   function playXSound() {
     xAudio.play().catch((error) => {
       console.error("Failed to play win sound:", error);
     });
+    xAudio.currentTime = 0;
   }
 
   function playOSound() {
     oAudio.play().catch((error) => {
       console.error("Failed to play draw sound:", error);
     });
+    oAudio.currentTime = 0;
   }
 
   function handlePlay(nextSquares: (null | string)[]) {
