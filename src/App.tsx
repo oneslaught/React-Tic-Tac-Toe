@@ -7,6 +7,7 @@ import GameResults from "./components/GameResults";
 import GameScore from "./components/GameScore";
 import PlayerTurn from "./components/PlayerTurn";
 import ResetButton from "./components/ResetButton";
+import { SquareValue } from "./components/Square";
 import "./styles/app.css";
 
 const winAudio = new Audio("../public/assets/win_sound.ogg");
@@ -61,7 +62,7 @@ export default function App() {
     oAudio.currentTime = 0;
   }
 
-  function handlePlay(nextSquares: (null | string)[]) {
+  function handlePlay(nextSquares: SquareValue[]) {
     const winner = CalculateWinner(nextSquares);
 
     if (turn === "X") {

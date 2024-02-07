@@ -24,9 +24,7 @@ export default function ResetButton({ onReset }: ResetButtonProps) {
   return (
     <div className={`${buttonStyle.container}`}>
       <motion.button
-        className={`${buttonStyle.reset} ${buttonStyle.hidden} ${
-          winner && showButton && buttonStyle.visible
-        } `}
+        className={`${buttonStyle.reset} ${buttonStyle.hidden} ${winner && showButton && buttonStyle.visible} `}
         onClick={handleResetClick}
         whileHover={{ scale: 1.1 }}
       >

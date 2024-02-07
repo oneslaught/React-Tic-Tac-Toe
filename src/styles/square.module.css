@@ -19,8 +19,8 @@
   border: 8px solid transparent;
 }
 
-.style span.X::after,
-.style span.X::before {
+.X::after,
+.X::before {
   position: absolute;
   content: "";
   width: 150%;
@@ -32,11 +32,11 @@
   border-radius: 5px;
 }
 
-.style span.X::after {
+.X::after {
   transform: translate(-50%, -50%) rotate(45deg);
   opacity: 1;
 }
 
-.style span.O {
-  border-color: rgb(254, 1, 154)
+.O {
+  border-color: rgb(254, 1, 154) !important;
 }
