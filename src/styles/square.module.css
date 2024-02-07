@@ -1,4 +1,4 @@
-.scale {
+.style {
   width: 120px;
   height: 120px;
   border-radius: 5px;
@@ -6,12 +6,37 @@
   background-color: #313131;
   font-size: 80px;
   cursor: pointer;
+  display: grid;
+  place-items: center;
 }
 
-.o {
-  color: rgb(254, 1, 154);
+.style span {
+  display: block;
+  position: relative;
+  width: 70%;
+  height: 70%;
+  border-radius: 50%;
+  border: 8px solid transparent;
 }
 
-.x {
-  color: rgb(1, 154, 254);
+.style span.X::after,
+.style span.X::before {
+  position: absolute;
+  content: "";
+  width: 150%;
+  height: 8px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  background: rgb(1, 154, 254);
+  border-radius: 5px;
+}
+
+.style span.X::after {
+  transform: translate(-50%, -50%) rotate(45deg);
+  opacity: 1;
+}
+
+.style span.O {
+  border-color: rgb(254, 1, 154)
 }

@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import React from "react";
 
 import square from "../styles/square.module.css";
@@ -8,16 +9,22 @@ interface SquareProps {
 }
 
 const Square: React.FC<SquareProps> = ({ onSquareClick, value }) => {
-  const playerClass = value === "X" ? square.x : value === "O" ? square.o : "";
-
   return (
-    <button
-      className={`${square.scale} ${playerClass}`}
+    <motion.button
+      animate={{ scale: 1 }}
+      className={`${square.style}`}
       disabled={value !== null}
+      initial={{ scale: 0.3 }}
       onClick={onSquareClick}
     >
-      {value}
-    </button>
+      {value && (
+        <motion.span
+          animate={{ scale: 1 }}
+          className={value}
+          initial={{ scale: 0 }}
+        ></motion.span>
+      )}
+    </motion.button>
   );
 };
 

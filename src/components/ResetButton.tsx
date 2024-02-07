@@ -1,4 +1,4 @@
-import motion from "framer-motion";
+import { motion } from "framer-motion";
 import React, { useEffect } from "react";
 
 import buttonStyle from "../styles/reset-button.module.css";
@@ -28,6 +28,7 @@ export default function ResetButton({ onReset }: ResetButtonProps) {
           winner && showButton && buttonStyle.visible
         } `}
         onClick={handleResetClick}
+        whileHover={{ scale: 1.1 }}
       >
         Play again
       </motion.button>
