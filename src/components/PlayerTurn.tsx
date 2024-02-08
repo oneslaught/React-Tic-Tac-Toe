@@ -11,7 +11,9 @@ export default function PlayerTurn() {
       <h3>Turn For</h3>
       <div className={`${turnClass.turnBox} ${turnClass.align}`}>X</div>
       <div className={`${turnClass.turnBox} ${turnClass.align}`}>O</div>
-      <div className={`${turnClass.bg} ${turn === "O" && turnClass.oTurn}`}></div>
+      <div
+        className={`${turnClass.bg} ${turn === "O" && turnClass.oTurn}`}
+      ></div>
     </div>
   );
 }

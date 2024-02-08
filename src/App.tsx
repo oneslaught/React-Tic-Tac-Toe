@@ -105,11 +105,7 @@ export default function App() {
       <PlayerTurn />
       <GameScore draws={draws} oWins={oWins} xWins={xWins} />
       <Board onPlay={handlePlay} squares={currentSquares} turn={turn} />
-      <GameResults
-        setShowResults={setShowResults}
-        showResults={showResults}
-        squares={currentSquares}
-      />
+      <GameResults setShowResults={setShowResults} showResults={showResults} squares={currentSquares} />
       <ResetButton onReset={handleReset} />
     </>
   );
