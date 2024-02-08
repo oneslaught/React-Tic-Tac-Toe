@@ -1,8 +1,6 @@
-type SquareValue = null | string;
+import { SquareValue } from "./Square";
 
-export default function CalculateWinner(
-  squares: SquareValue[],
-): SquareValue | undefined {
+export default function CalculateWinner(squares: SquareValue[]): "draw" | SquareValue {
   const lines: number[][] = [
     [0, 1, 2],
     [3, 4, 5],
@@ -16,18 +14,14 @@ export default function CalculateWinner(
 
   for (const line of lines) {
     const [a, b, c] = line;
-    if (
-      squares[a!] &&
-      squares[a!] === squares[b!] &&
-      squares[a!] === squares[c!]
-    ) {
+    if (squares[a!] && squares[a!] === squares[b!] && squares[a!] === squares[c!]) {
       return squares[a!];
     }
   }
 
-  if (squares.every((square) => square !== null)) {
+  if (squares.every((square) => !!square)) {
     return "draw";
   }
 
-  return null;
+  return undefined;
 }

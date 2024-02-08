@@ -1,13 +1,15 @@
 import React, { createContext, useContext, useState } from "react";
 
+import { SquareValue } from "./Square";
+
 interface GameContextType {
-  currentSquares: (null | string)[];
+  currentSquares: SquareValue[];
   draws: number;
-  history: (null | string)[][];
+  history: SquareValue[][];
   oWins: number;
   removeShake: boolean;
   setDraws: React.Dispatch<React.SetStateAction<number>>;
-  setHistory: React.Dispatch<React.SetStateAction<(null | string)[][]>>;
+  setHistory: React.Dispatch<React.SetStateAction<SquareValue[][]>>;
   setOWins: React.Dispatch<React.SetStateAction<number>>;
   setRemoveShake: React.Dispatch<React.SetStateAction<boolean>>;
   setShowButton: React.Dispatch<React.SetStateAction<boolean>>;
@@ -24,13 +26,9 @@ interface GameContextType {
 
 const GameContext = createContext<GameContextType | undefined>(undefined);
 
-export const GameProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [turn, setTurn] = useState<string>("X");
-  const [history, setHistory] = useState<(null | string)[][]>([
-    Array(9).fill(null),
-  ]);
+  const [history, setHistory] = useState<SquareValue[][]>([Array(9).fill(null)]);
   const currentSquares = history[history.length - 1] ?? Array(9).fill(null);
   const [showResults, setShowResults] = useState<boolean>(true);
   const [xWins, setXWins] = useState<number>(0);
@@ -62,9 +60,7 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({
     xWins,
   };
 
-  return (
-    <GameContext.Provider value={contextValue}>{children}</GameContext.Provider>
-  );
+  return <GameContext.Provider value={contextValue}>{children}</GameContext.Provider>;
 };
 
 export const useGameContext = () => {

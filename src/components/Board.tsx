@@ -2,10 +2,11 @@ import React from "react";
 
 import board from "../styles/board.module.css";
 import calculateWinner from "./CalculateWinner";
-import Square from "./Square";
+import Square, { SquareValue } from "./Square";
+
 interface BoardProps {
-  onPlay: (nextSquares: (null | string)[]) => void;
-  squares: (null | string)[];
+  onPlay: (nextSquares: SquareValue[]) => void;
+  squares: SquareValue[];
   turn: string;
 }
 
@@ -14,7 +15,7 @@ const Board: React.FC<BoardProps> = ({ onPlay, squares, turn }) => {
     if (calculateWinner(squares) ?? squares[i]) {
       return;
     }
-    const nextSquares: (null | string)[] = squares.slice();
+    const nextSquares: SquareValue[] = squares.slice();
     if (turn === "X") {
       nextSquares[i] = "X";
     } else if (turn === "O") {
