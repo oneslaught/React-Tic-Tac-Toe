@@ -10,11 +10,11 @@ import ResetButton from "./components/ResetButton";
 import { SquareValue } from "./components/Square";
 import "./styles/app.css";
 
-const winXAudio = new Audio("../public/assets/winX_sound.ogg");
-const winOAudio = new Audio("../public/assets/winO_sound.ogg");
-const drawAudio = new Audio("../public/assets/draw_sound.ogg");
-const xAudio = new Audio("../public/assets/x_sound.ogg");
-const oAudio = new Audio("../public/assets/o_sound.ogg");
+const winXAudio = new Audio("https://cdn.jsdelivr.net/gh/oneslaught/React-Tic-Tac-Toe/public/assets/winX_sound.ogg");
+const winOAudio = new Audio("https://cdn.jsdelivr.net/gh/oneslaught/React-Tic-Tac-Toe/public/assets/winO_sound.ogg");
+const drawAudio = new Audio("https://cdn.jsdelivr.net/gh/oneslaught/React-Tic-Tac-Toe/public/assets/draw_sound.ogg");
+const xAudio = new Audio("https://cdn.jsdelivr.net/gh/oneslaught/React-Tic-Tac-Toe/public/assets/x_sound.ogg");
+const oAudio = new Audio("https://cdn.jsdelivr.net/gh/oneslaught/React-Tic-Tac-Toe/public/assets/o_sound.ogg");
 
 export default function App() {
   const {
