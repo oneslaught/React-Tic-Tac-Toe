@@ -10,7 +10,8 @@ import ResetButton from "./components/ResetButton";
 import { SquareValue } from "./components/Square";
 import "./styles/app.css";
 
-const winAudio = new Audio("../public/assets/win_sound.ogg");
+const winXAudio = new Audio("../public/assets/winX_sound.ogg");
+const winOAudio = new Audio("../public/assets/winO_sound.ogg");
 const drawAudio = new Audio("../public/assets/draw_sound.ogg");
 const xAudio = new Audio("../public/assets/x_sound.ogg");
 const oAudio = new Audio("../public/assets/o_sound.ogg");
@@ -34,11 +35,18 @@ export default function App() {
     xWins,
   } = useGameContext();
 
-  function playWinSound() {
-    winAudio.play().catch((error) => {
+  function playWinXSound() {
+    winXAudio.play().catch((error) => {
       console.error("Failed to play win sound:", error);
     });
-    winAudio.currentTime = 0;
+    winXAudio.currentTime = 0;
+  }
+
+  function playWinOSound() {
+    winOAudio.play().catch((error) => {
+      console.error("Failed to play win sound:", error);
+    });
+    winOAudio.currentTime = 0;
   }
 
   function playDrawSound() {
@@ -74,12 +82,12 @@ export default function App() {
       setXWins(xWins + 1);
       setRemoveShake(true);
       setShowButton(true);
-      playWinSound();
+      playWinXSound();
     } else if (winner === "O") {
       setOWins(oWins + 1);
       setRemoveShake(true);
       setShowButton(true);
-      playWinSound();
+      playWinOSound();
     } else if (winner === "draw") {
       setDraws(draws + 1);
       setRemoveShake(true);
