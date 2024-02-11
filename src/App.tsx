@@ -37,14 +37,14 @@ export default function App() {
 
   function playWinXSound() {
     winXAudio.play().catch((error) => {
-      console.error("Failed to play win sound:", error);
+      console.error("Failed to play win 'X' sound:", error);
     });
     winXAudio.currentTime = 0;
   }
 
   function playWinOSound() {
     winOAudio.play().catch((error) => {
-      console.error("Failed to play win sound:", error);
+      console.error("Failed to play win 'O' sound:", error);
     });
     winOAudio.currentTime = 0;
   }
@@ -58,14 +58,14 @@ export default function App() {
 
   function playXSound() {
     xAudio.play().catch((error) => {
-      console.error("Failed to play win sound:", error);
+      console.error("Failed to play 'X' sound:", error);
     });
     xAudio.currentTime = 0;
   }
 
   function playOSound() {
     oAudio.play().catch((error) => {
-      console.error("Failed to play draw sound:", error);
+      console.error("Failed to play 'O' sound:", error);
     });
     oAudio.currentTime = 0;
   }

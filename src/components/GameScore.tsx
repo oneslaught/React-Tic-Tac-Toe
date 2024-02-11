@@ -26,27 +26,15 @@ const GameScore: React.FC<GameScoreProps> = ({ draws, oWins, xWins }) => {
   return (
     <div className={`${score.container}`}>
       <ul>
-        <li
-          className={`${score.elem} ${score.x} ${
-            winner === "X" && removeShake && score.shake
-          }`}
-        >
+        <li className={`${score.elem} ${score.x} ${winner === "X" && removeShake && score.shake}`}>
           <p>X wins</p>
           <span>{xWins}</span>
         </li>
-        <li
-          className={`${score.elem} ${score.draw} ${
-            winner === "draw" && removeShake && score.shake
-          }`}
-        >
+        <li className={`${score.elem} ${score.draw} ${winner === "draw" && removeShake && score.shake}`}>
           <p>Draws</p>
           <span>{draws}</span>
         </li>
-        <li
-          className={`${score.elem} ${score.o} ${
-            winner === "O" && removeShake && score.shake
-          }`}
-        >
+        <li className={`${score.elem} ${score.o} ${winner === "O" && removeShake && score.shake}`}>
           <p>O wins</p>
           <span>{oWins}</span>
         </li>
