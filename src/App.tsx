@@ -70,6 +70,22 @@ export default function App() {
     oAudio.currentTime = 0;
   }
 
+  function changePlayerTurn() {
+    const subArray = history[1];
+
+    for (const element of subArray!) {
+      if (element === "X") {
+        setTurn("O");
+        console.log("O");
+        break;
+      } else if (element === "O") {
+        setTurn("X");
+        console.log("X");
+        break;
+      }
+    }
+  }
+
   function handlePlay(nextSquares: SquareValue[]) {
     const winner = CalculateWinner(nextSquares);
 
@@ -95,12 +111,13 @@ export default function App() {
       playDrawSound();
     }
     setHistory([...history, nextSquares]);
+    console.log(history);
     setTurn(turn === "X" ? "O" : "X");
   }
 
   function handleReset() {
+    changePlayerTurn();
     setHistory([Array(9).fill(null)]);
-    setTurn("X");
     setShowResults(false);
     setTimeout(() => {
       setRemoveShake(false);
