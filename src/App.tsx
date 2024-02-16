@@ -76,11 +76,9 @@ export default function App() {
     for (const element of subArray!) {
       if (element === "X") {
         setTurn("O");
-        console.log("O");
         break;
       } else if (element === "O") {
         setTurn("X");
-        console.log("X");
         break;
       }
     }
@@ -111,7 +109,6 @@ export default function App() {
       playDrawSound();
     }
     setHistory([...history, nextSquares]);
-    console.log(history);
     setTurn(turn === "X" ? "O" : "X");
   }
 

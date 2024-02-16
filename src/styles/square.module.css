@@ -4,7 +4,6 @@
   border-radius: 5px;
   border: 2px solid #eee;
   background-color: #313131;
-  font-size: 80px;
   cursor: pointer;
   display: grid;
   place-items: center;
@@ -17,6 +16,12 @@
   height: 70%;
   border-radius: 50%;
   border: 8px solid transparent;
+}
+
+.scale {
+  width: 100px;
+  height: 100px;
+  border-radius: 4px;
 }
 
 .X::after,

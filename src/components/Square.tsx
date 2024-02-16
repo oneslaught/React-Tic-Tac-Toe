@@ -12,7 +12,13 @@ interface SquareProps {
 
 const Square: React.FC<SquareProps> = ({ onSquareClick, value }) => {
   return (
-    <motion.button animate={{ scale: 1 }} className={`${square.style}`} disabled={!!value} initial={{ scale: 0.3 }} onClick={onSquareClick}>
+    <motion.button
+      animate={{ scale: 1 }}
+      className={`${square.style} ${window.innerWidth <= 600 ? square.scale : ""}`}
+      disabled={!!value}
+      initial={{ scale: 0.3 }}
+      onClick={onSquareClick}
+    >
       {value && <motion.span animate={{ scale: 1 }} className={square[value]} initial={{ scale: 0 }}></motion.span>}
     </motion.button>
   );
