@@ -45,3 +45,19 @@
 .O {
   border-color: rgb(254, 1, 154) !important;
 }
+
+.winning {
+  animation-name: scaleAnimation;
+  animation-duration: 0.7s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes scaleAnimation {
+  from {
+    transform: scale(1.1);
+  }
+  to {
+    transform: scale(0.9);
+  }
+}
