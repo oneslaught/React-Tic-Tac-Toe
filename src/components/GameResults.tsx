@@ -1,25 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import results from "../styles/game-results.module.css";
-import CalculateWinner from "./CalculateWinner";
-import { useGameContext } from "./GameContext";
-import { SquareValue } from "./Square";
+import { useGameContext } from "./GameProvider";
 
-interface GameResultsProps {
-  setShowResults: React.Dispatch<React.SetStateAction<boolean>>;
-  showResults: boolean;
-  squares: SquareValue[];
-}
-
-const GameResults: React.FC<GameResultsProps> = ({ setShowResults, showResults, squares }) => {
-  const { setWinner, winner } = useGameContext();
-  useEffect(() => {
-    const result = CalculateWinner(squares);
-    if (result) {
-      setShowResults(true);
-      setWinner(result);
-    }
-  }, [squares]);
+export default function GameResults() {
+  const { winner } = useGameContext();
 
   let containerClass = results.container;
   let fastFlickerClass = results.fastFlicker;
@@ -40,7 +25,7 @@ const GameResults: React.FC<GameResultsProps> = ({ setShowResults, showResults, 
   }
 
   return (
-    <div className={`${results.container} ${containerClass} ${showResults ? "" : results.hidden}`}>
+    <div className={`${results.container} ${containerClass} ${winner ? "" : results.hidden}`}>
       {winner && winner !== "draw" && (
         <div className={`${results.font}`}>
           <span className={`${fastFlickerClass}`}>{winner} </span>w<span className={`${flickerClass}`}>o</span>n
@@ -53,6 +38,4 @@ const GameResults: React.FC<GameResultsProps> = ({ setShowResults, showResults, 
       )}
     </div>
   );
-};
-
-export default GameResults;
+}

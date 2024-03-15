@@ -1,31 +1,17 @@
 import { motion } from "framer-motion";
-import React, { useEffect } from "react";
+import React from "react";
 
 import buttonStyle from "../styles/reset-button.module.css";
-import { useGameContext } from "./GameContext";
+import { useGameContext } from "./GameProvider";
 
-interface ResetButtonProps {
-  onReset: () => void;
-}
-
-export default function ResetButton({ onReset }: ResetButtonProps) {
-  const { setShowButton, showButton, winner } = useGameContext();
-
-  useEffect(() => {
-    if (showButton) {
-      setShowButton(true);
-    }
-  }, [showButton]);
-
-  const handleResetClick = () => {
-    onReset();
-  };
+export default function ResetButton() {
+  const { winner, resetGame } = useGameContext();
 
   return (
     <div className={`${buttonStyle.container}`}>
       <motion.button
-        className={`${buttonStyle.reset} ${buttonStyle.hidden} ${winner && showButton && buttonStyle.visible} `}
-        onClick={handleResetClick}
+        className={`${buttonStyle.reset} ${buttonStyle.hidden} ${winner && buttonStyle.visible} `}
+        onClick={resetGame}
         whileHover={{ scale: 1.1 }}
       >
         Play again

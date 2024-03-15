@@ -1,5 +1,4 @@
-import { useGameContext } from "./GameContext";
-import { SquareValue } from "./Square";
+import { SquareValue, useGameContext } from "./GameProvider";
 
 const lines: number[][] = [
   [0, 1, 2],
@@ -12,7 +11,7 @@ const lines: number[][] = [
   [2, 4, 6],
 ];
 
-export default function CalculateWinner(squares: SquareValue[]): "draw" | SquareValue {
+export default function calculateWinner(squares: SquareValue[]): "draw" | SquareValue {
   for (const line of lines) {
     const [a, b, c] = line;
     if (squares[a!] && squares[a!] === squares[b!] && squares[a!] === squares[c!]) {

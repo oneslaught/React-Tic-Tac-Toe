@@ -1,99 +1,90 @@
 import React from "react";
 
 import board from "../styles/board.module.css";
-import calculateWinner from "./CalculateWinner";
 import { isWinningSquare } from "./CalculateWinner";
-import Square, { SquareValue } from "./Square";
+import { useOnlineContext } from "./OnlineComponent";
+import Square from "./Square";
+import { useGameContext } from "./GameProvider";
 
-interface BoardProps {
-  onPlay: (nextSquares: SquareValue[]) => void;
-  squares: SquareValue[];
-  turn: string;
-}
+export default function Board() {
+  const { currentSquares, handlePlay } = useGameContext();
+  const { isOnlineMode, send } = useOnlineContext();
 
-const Board: React.FC<BoardProps> = ({ onPlay, squares, turn }) => {
   function handleClick(i: number) {
-    if (calculateWinner(squares) ?? squares[i]) {
-      return;
+    if (isOnlineMode) {
+      send(i.toString());
+    } else {
+      handlePlay(i);
     }
-    const nextSquares: SquareValue[] = squares.slice();
-    if (turn === "X") {
-      nextSquares[i] = "X";
-    } else if (turn === "O") {
-      nextSquares[i] = "O";
-    }
-    onPlay(nextSquares);
   }
 
   return (
     <div className={`${board.container}`}>
       <div className={`${board.display}`}>
         <Square
-          isWinningSquare={isWinningSquare(0, squares)}
+          isWinningSquare={isWinningSquare(0, currentSquares)}
           onSquareClick={() => {
             handleClick(0);
           }}
-          value={squares[0]}
+          value={currentSquares[0]}
         />
         <Square
-          isWinningSquare={isWinningSquare(1, squares)}
+          isWinningSquare={isWinningSquare(1, currentSquares)}
           onSquareClick={() => {
             handleClick(1);
           }}
-          value={squares[1]}
+          value={currentSquares[1]}
         />
         <Square
-          isWinningSquare={isWinningSquare(2, squares)}
+          isWinningSquare={isWinningSquare(2, currentSquares)}
           onSquareClick={() => {
             handleClick(2);
           }}
-          value={squares[2]}
+          value={currentSquares[2]}
         />
         <Square
-          isWinningSquare={isWinningSquare(3, squares)}
+          isWinningSquare={isWinningSquare(3, currentSquares)}
           onSquareClick={() => {
             handleClick(3);
           }}
-          value={squares[3]}
+          value={currentSquares[3]}
         />
         <Square
-          isWinningSquare={isWinningSquare(4, squares)}
+          isWinningSquare={isWinningSquare(4, currentSquares)}
           onSquareClick={() => {
             handleClick(4);
           }}
-          value={squares[4]}
+          value={currentSquares[4]}
         />
         <Square
-          isWinningSquare={isWinningSquare(5, squares)}
+          isWinningSquare={isWinningSquare(5, currentSquares)}
           onSquareClick={() => {
             handleClick(5);
           }}
-          value={squares[5]}
+          value={currentSquares[5]}
         />
         <Square
-          isWinningSquare={isWinningSquare(6, squares)}
+          isWinningSquare={isWinningSquare(6, currentSquares)}
           onSquareClick={() => {
             handleClick(6);
           }}
-          value={squares[6]}
+          value={currentSquares[6]}
         />
         <Square
-          isWinningSquare={isWinningSquare(7, squares)}
+          isWinningSquare={isWinningSquare(7, currentSquares)}
           onSquareClick={() => {
             handleClick(7);
           }}
-          value={squares[7]}
+          value={currentSquares[7]}
         />
         <Square
-          isWinningSquare={isWinningSquare(8, squares)}
+          isWinningSquare={isWinningSquare(8, currentSquares)}
           onSquareClick={() => {
             handleClick(8);
           }}
-          value={squares[8]}
+          value={currentSquares[8]}
         />
       </div>
     </div>
   );
-};
-
-export default Board;
+}

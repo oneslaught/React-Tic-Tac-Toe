@@ -6,12 +6,14 @@
     "framer-motion": "^11.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "use-immer": "^0.9.0"
+    "use-immer": "^0.9.0",
+    "ws": "^8.16.0"
   },
   "scripts": {
     "start": "webpack server",
     "build": "webpack",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "server": "ts-node src/server"
   },
   "browserslist": {
     "production": [

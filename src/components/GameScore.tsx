@@ -1,46 +1,41 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import score from "../styles/game-score.module.css";
-import { useGameContext } from "./GameContext";
+import { useGameContext } from "./GameProvider";
 
-interface GameScoreProps {
-  draws: number;
-  oWins: number;
-  xWins: number;
-}
+export default function GameScore() {
+  const [xWins, setXWins] = useState<number>(0);
+  const [oWins, setOWins] = useState<number>(0);
+  const [draws, setDraws] = useState<number>(0);
 
-const GameScore: React.FC<GameScoreProps> = ({ draws, oWins, xWins }) => {
-  const { removeShake, setRemoveShake, winner } = useGameContext();
+  const { winner } = useGameContext();
 
   useEffect(() => {
-    if (removeShake) {
-      const timer = setTimeout(() => {
-        setRemoveShake(true);
-      }, 1000);
-      return () => {
-        clearTimeout(timer);
-      };
+    if (winner === "X") {
+      setXWins(xWins + 1);
+    } else if (winner === "O") {
+      setOWins(oWins + 1);
+    } else if (winner === "draw") {
+      setDraws(draws + 1);
     }
-  }, [removeShake]);
+  }, [winner]);
 
   return (
     <div className={`${score.container}`}>
       <ul>
-        <li className={`${score.elem} ${score.x} ${winner === "X" && removeShake && score.shake}`}>
+        <li className={`${score.elem} ${score.x} ${winner === "X" && score.shake}`}>
           <p>X wins</p>
           <span>{xWins}</span>
         </li>
-        <li className={`${score.elem} ${score.draw} ${winner === "draw" && removeShake && score.shake}`}>
+        <li className={`${score.elem} ${score.draw} ${winner === "draw" && score.shake}`}>
           <p>Draws</p>
           <span>{draws}</span>
         </li>
-        <li className={`${score.elem} ${score.o} ${winner === "O" && removeShake && score.shake}`}>
+        <li className={`${score.elem} ${score.o} ${winner === "O" && score.shake}`}>
           <p>O wins</p>
           <span>{oWins}</span>
         </li>
       </ul>
     </div>
   );
-};
-
-export default GameScore;
+}
