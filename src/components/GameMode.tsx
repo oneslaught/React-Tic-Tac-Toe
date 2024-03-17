@@ -2,8 +2,8 @@ import { motion } from "framer-motion";
 import React from "react";
 
 import modeButtonStyle from "../styles/game-mode.module.css";
-import { useGameContext } from "./GameProvider";
-import { useOnlineContext } from "./OnlineComponent";
+import { useGameContext } from "./context/GameProvider";
+import { useOnlineContext } from "./context/OnlineProvider";
 
 export default function GameMode() {
   const { gameInProgress } = useGameContext();

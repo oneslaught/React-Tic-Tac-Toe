@@ -2,9 +2,9 @@ import React from "react";
 
 import board from "../styles/board.module.css";
 import { isWinningSquare } from "./CalculateWinner";
-import { useOnlineContext } from "./OnlineComponent";
+import { useOnlineContext } from "./context/OnlineProvider";
 import Square from "./Square";
-import { useGameContext } from "./GameProvider";
+import { useGameContext } from "./context/GameProvider";
 
 export default function Board() {
   const { currentSquares, handlePlay } = useGameContext();

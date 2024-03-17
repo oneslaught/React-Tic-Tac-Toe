@@ -1,7 +1,7 @@
 import React from "react";
 
 import turnClass from "../styles/player-turn.module.css";
-import { useGameContext } from "./GameProvider";
+import { useGameContext } from "./context/GameProvider";
 
 export default function PlayerTurn() {
   const { turn } = useGameContext();

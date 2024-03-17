@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, useEffect } from "react";
-import { useGameContext } from "./GameProvider";
+import { useGameContext } from "./context/GameProvider";
 
 const winXAudio = new Audio("https://cdn.jsdelivr.net/gh/oneslaught/React-Tic-Tac-Toe/public/assets/winX_sound.ogg");
 const winOAudio = new Audio("https://cdn.jsdelivr.net/gh/oneslaught/React-Tic-Tac-Toe/public/assets/winO_sound.ogg");

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import score from "../styles/game-score.module.css";
-import { useGameContext } from "./GameProvider";
+import { useGameContext } from "./context/GameProvider";
 
 export default function GameScore() {
   const [xWins, setXWins] = useState<number>(0);

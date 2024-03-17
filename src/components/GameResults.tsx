@@ -1,7 +1,7 @@
 import React from "react";
 
 import results from "../styles/game-results.module.css";
-import { useGameContext } from "./GameProvider";
+import { useGameContext } from "./context/GameProvider";
 
 export default function GameResults() {
   const { winner } = useGameContext();
