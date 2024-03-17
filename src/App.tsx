@@ -8,16 +8,24 @@ import PlayerTurn from "./components/PlayerTurn";
 import ResetButton from "./components/ResetButton";
 import "./styles/app.css";
 import { AudioComponent } from "./components/AudioComponent";
+import { GameProvider } from "./components/context/GameProvider";
+import { OnlineProvider } from "./components/context/OnlineProvider";
 
 export default function App() {
   return (
-    <AudioComponent>
-      <PlayerTurn />
-      <GameScore />
-      <Board />
-      <GameResults />
-      <ResetButton />
-      <GameMode />
-    </AudioComponent>
+    <React.StrictMode>
+      <GameProvider>
+        <OnlineProvider>
+          <AudioComponent>
+            <PlayerTurn />
+            <GameScore />
+            <Board />
+            <GameResults />
+            <ResetButton />
+            <GameMode />
+          </AudioComponent>
+        </OnlineProvider>
+      </GameProvider>
+    </React.StrictMode>
   );
 }

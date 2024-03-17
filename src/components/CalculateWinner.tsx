@@ -1,4 +1,4 @@
-import { SquareValue, useGameContext } from "./GameProvider";
+import { SquareValue, useGameContext } from "./context/GameProvider";
 
 const lines: number[][] = [
   [0, 1, 2],

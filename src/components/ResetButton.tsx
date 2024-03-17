@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import React from "react";
 
 import buttonStyle from "../styles/reset-button.module.css";
-import { useGameContext } from "./GameProvider";
+import { useGameContext } from "./context/GameProvider";
 
 export default function ResetButton() {
   const { winner, resetGame } = useGameContext();
