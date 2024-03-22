@@ -1,15 +1,15 @@
 import WebSocket from "ws";
+import { Message, TurnMessage } from "./types";
 
 type IdentifiableWebSocket = typeof WebSocket.WebSocket & {
   id?: string;
   symbol?: "O" | "X";
 } & WebSocket;
 
-export type SquareValue = "O" | "X" | undefined;
-
 const wsServer = new WebSocket.Server<IdentifiableWebSocket>({ port: 9017 });
 const waitingRoom: Record<string, IdentifiableWebSocket> = {};
-const board = Array(9).fill(undefined);
+let board = Array(9).fill(undefined);
+let currentPlayer: IdentifiableWebSocket | undefined;
 let playerA: IdentifiableWebSocket;
 let playerB: IdentifiableWebSocket;
 
@@ -30,43 +30,60 @@ function onConnect(wsClient: IdentifiableWebSocket) {
     playerA.send("Game started");
     playerB.send("Game started");
 
-    playerA.on("message", function (message: string) {
-      handleTurn(message, playerA, playerB);
+    playerA.on("message", function (data: string) {
+      const message = JSON.parse(data) as Message;
+      switch (message.type) {
+        case "TURN":
+          handleTurn(message, playerA, playerB);
+          break;
+        case "RESET":
+          resetGame();
+          break;
+      }
     });
 
-    playerB.on("message", function (message: string) {
-      handleTurn(message, playerB, playerA);
+    playerB.on("message", function (data: string) {
+      const message = JSON.parse(data) as Message;
+      switch (message.type) {
+        case "TURN":
+          handleTurn(message, playerB, playerA);
+          break;
+        case "RESET":
+          resetGame();
+          break;
+      }
     });
   }
   console.log("Новый пользователь");
 
-  function handleTurn(position: string, player: IdentifiableWebSocket, opponent: IdentifiableWebSocket) {
+  function handleTurn(message: TurnMessage, player: IdentifiableWebSocket, opponent: IdentifiableWebSocket) {
     const isFirstTurn = board.every((c) => !c);
     if (isFirstTurn) {
       player.symbol = "X";
       opponent.symbol = "O";
-      board[Number(position)] = "X";
+      currentPlayer = opponent;
     } else {
-      board[Number(position)] = player.symbol;
+      if (currentPlayer !== player) {
+        return;
+      }
+      currentPlayer = opponent;
     }
+    board[Number(message.position)] = player.symbol;
 
-    player.send(JSON.stringify({ position: Number(position), symbol: player.symbol, type: "TURN", yourTurn: false }));
-    opponent.send(JSON.stringify({ position: Number(position), symbol: player.symbol, type: "TURN", yourTurn: true }));
+    player.send(JSON.stringify({ position: Number(message.position), symbol: player.symbol, type: "TURN", yourTurn: false }));
+    opponent.send(JSON.stringify({ position: Number(message.position), symbol: player.symbol, type: "TURN", yourTurn: true }));
   }
 
-  // отправка приветственного сообщения клиенту
-  // wsClient.send("Привет");
-
-  // wsClient.on("message", function (message: any) {
-  //   console.log("received: %s", message);
-  //   wsClient.send("Получил");
-  //   /* обработчик сообщений от клиента */
-  // });
+  function resetGame() {
+    board = Array(9).fill(undefined);
+    currentPlayer = undefined;
+    playerA.send(JSON.stringify({ type: "RESET" }));
+    playerB.send(JSON.stringify({ type: "RESET" }));
+  }
 
   wsClient.on("close", function () {
     // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
     delete waitingRoom[wsClient.id!];
-    // отправка уведомления в консоль
     console.log("Пользователь отключился");
   });
 }

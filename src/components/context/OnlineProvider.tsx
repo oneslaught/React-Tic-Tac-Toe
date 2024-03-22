@@ -1,23 +1,18 @@
 import React, { PropsWithChildren, createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useGameContext } from "./GameProvider";
-
-interface TurnMessage {
-  type: "TURN";
-  position: number;
-  symbol: "O" | "X";
-}
+import { Message } from "../../types";
 
 interface OnlineContext {
   connect: VoidFunction;
   disconnect: VoidFunction;
   isOnlineMode: boolean;
-  send: (payload: string) => void;
+  send: (payload: Message) => void;
 }
 
 const OnlineContext = createContext<OnlineContext | undefined>(undefined);
 
 export const OnlineProvider = ({ children }: PropsWithChildren) => {
-  const { handlePlay } = useGameContext();
+  const { handlePlay, resetGame } = useGameContext();
 
   const [onlineMode, setOnlineMode] = useState(false);
   const [connection, setConnection] = useState<WebSocket | undefined>(undefined);
@@ -31,11 +26,15 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
       connection.onmessage = (e) => {
         const data = e.data as string;
         try {
-          const message = JSON.parse(data) as TurnMessage;
+          const message = JSON.parse(data) as Message;
           console.log(message);
-          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-          if (message.type === "TURN") {
-            handlePlay(message.position);
+          switch (message.type) {
+            case "TURN":
+              handlePlay(message.position);
+              break;
+            case "RESET":
+              resetGame();
+              break;
           }
         } catch (err) {
           console.log(data);
@@ -45,8 +44,8 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
   }, [connection, handlePlay, setOnlineMode]);
 
   const send = useCallback(
-    (value: string) => {
-      connection?.send(value);
+    (value: Message) => {
+      connection?.send(JSON.stringify(value));
     },
     [connection],
   );
@@ -58,7 +57,7 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
   }, [connection, setConnection, setOnlineMode]);
 
   const connect = useCallback(() => {
-    const ws = new WebSocket("ws://localhost:9017");
+    const ws = new WebSocket(`ws://${window.location.host.split(":")[0]}:9017`);
     setConnection(ws);
   }, [handlePlay, setConnection]);
 

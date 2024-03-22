@@ -7,12 +7,12 @@ import Square from "./Square";
 import { useGameContext } from "./context/GameProvider";
 
 export default function Board() {
-  const { currentSquares, handlePlay } = useGameContext();
+  const { currentSquares, handlePlay, turn } = useGameContext();
   const { isOnlineMode, send } = useOnlineContext();
 
   function handleClick(i: number) {
     if (isOnlineMode) {
-      send(i.toString());
+      send({ type: "TURN", position: i, symbol: turn });
     } else {
       handlePlay(i);
     }

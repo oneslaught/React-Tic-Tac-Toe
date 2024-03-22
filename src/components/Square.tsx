@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import React from "react";
 
 import square from "../styles/square.module.css";
-import { SquareValue } from "./context/GameProvider";
+import { SquareValue } from "../types";
 
 interface SquareProps {
   isWinningSquare?: boolean;

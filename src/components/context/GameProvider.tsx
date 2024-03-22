@@ -1,9 +1,9 @@
 import React, { PropsWithChildren, createContext, useCallback, useContext, useMemo, useState } from "react";
 
 import calculateWinner from "../CalculateWinner";
+import { SquareValue } from "../../types";
 
 type TurnType = "X" | "O";
-export type SquareValue = "O" | "X" | undefined;
 
 interface GameContextType {
   turn: TurnType;

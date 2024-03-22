@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import score from "../styles/game-score.module.css";
 import { useGameContext } from "./context/GameProvider";
+import { useOnlineContext } from "./context/OnlineProvider";
 
 export default function GameScore() {
   const [xWins, setXWins] = useState<number>(0);
@@ -9,6 +10,13 @@ export default function GameScore() {
   const [draws, setDraws] = useState<number>(0);
 
   const { winner } = useGameContext();
+  const { isOnlineMode } = useOnlineContext();
+
+  useEffect(() => {
+    setXWins(0);
+    setOWins(0);
+    setDraws(0);
+  }, [isOnlineMode]);
 
   useEffect(() => {
     if (winner === "X") {
