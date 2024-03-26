@@ -6,9 +6,9 @@ import { useGameContext } from "./context/GameProvider";
 export default function GameResults() {
   const { winner } = useGameContext();
 
-  let containerClass = results.container;
-  let fastFlickerClass = results.fastFlicker;
-  let flickerClass = results.flicker;
+  let containerClass = results.container!;
+  let fastFlickerClass = results.fastFlicker!;
+  let flickerClass = results.flicker!;
 
   if (winner === "X") {
     containerClass += ` ${results.signX}`;
@@ -28,12 +28,12 @@ export default function GameResults() {
     <div className={`${results.container} ${containerClass} ${winner ? "" : results.hidden}`}>
       {winner && winner !== "draw" && (
         <div className={`${results.font}`}>
-          <span className={`${fastFlickerClass}`}>{winner} </span>w<span className={`${flickerClass}`}>o</span>n
+          <span className={fastFlickerClass}>{winner} </span>w<span className={flickerClass}>o</span>n
         </div>
       )}
       {winner === "draw" && (
         <div className={`${results.font}`}>
-          <span className={`${fastFlickerClass}`}>D</span>r<span className={`${flickerClass}`}>a</span>w
+          <span className={fastFlickerClass}>D</span>r<span className={flickerClass}>a</span>w
         </div>
       )}
     </div>

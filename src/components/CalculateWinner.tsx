@@ -1,7 +1,6 @@
-import { useGameContext } from "./context/GameProvider";
 import { SquareValue } from "../types";
 
-const lines: number[][] = [
+export const lines: number[][] = [
   [0, 1, 2],
   [3, 4, 5],
   [6, 7, 8],
@@ -26,18 +25,3 @@ export default function calculateWinner(squares: SquareValue[]): "draw" | Square
 
   return undefined;
 }
-
-export const isWinningSquare = (index: number, squares: SquareValue[]): boolean => {
-  const { winner } = useGameContext();
-  if (winner === "draw" || !winner) {
-    return false;
-  }
-
-  for (const line of lines) {
-    if (line.includes(index) && line.every((i) => squares[i] === winner)) {
-      return true;
-    }
-  }
-
-  return false;
-};

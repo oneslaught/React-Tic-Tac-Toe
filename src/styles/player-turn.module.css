@@ -48,3 +48,28 @@
   left: 85px;
   background-color: rgb(254, 1, 154);
 }
+
+.onlineContainer {
+  width: 260px;
+}
+
+.onlineBg {
+  position: relative;
+  top: -40px;
+  left: 0;
+  width: 130px;
+  height: 40px;
+  z-index: -1;
+  transition: 0.2s ease-in-out;
+  background-color: #019afe;
+}
+
+.onlineYourTurn {
+  right: 130px;
+  background-color: #019afe;
+}
+
+.onlineOpponentTurn {
+  left: 130px;
+  background-color: rgb(254, 1, 154);
+}

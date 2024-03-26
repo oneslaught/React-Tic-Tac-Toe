@@ -5,42 +5,47 @@ import { useGameContext } from "./context/GameProvider";
 import { useOnlineContext } from "./context/OnlineProvider";
 
 export default function GameScore() {
-  const [xWins, setXWins] = useState<number>(0);
-  const [oWins, setOWins] = useState<number>(0);
-  const [draws, setDraws] = useState<number>(0);
+  const [offlineXWins, setOfflineXWins] = useState<number>(0);
+  const [offlineOWins, setOfflineOWins] = useState<number>(0);
+  const [offlineDraws, setOfflineDraws] = useState<number>(0);
 
   const { winner } = useGameContext();
-  const { isOnlineMode } = useOnlineContext();
+  const { isOnlineMode, yourWins, opponentWins, draws: onlineDraws } = useOnlineContext();
 
   useEffect(() => {
-    setXWins(0);
-    setOWins(0);
-    setDraws(0);
+    setOfflineXWins(0);
+    setOfflineOWins(0);
+    setOfflineDraws(0);
   }, [isOnlineMode]);
 
   useEffect(() => {
     if (winner === "X") {
-      setXWins(xWins + 1);
+      setOfflineXWins(offlineXWins + 1);
     } else if (winner === "O") {
-      setOWins(oWins + 1);
+      setOfflineOWins(offlineOWins + 1);
     } else if (winner === "draw") {
-      setDraws(draws + 1);
+      setOfflineDraws(offlineDraws + 1);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [winner]);
+
+  const xWins = isOnlineMode ? yourWins : offlineXWins;
+  const oWins = isOnlineMode ? opponentWins : offlineOWins;
+  const draws = isOnlineMode ? onlineDraws : offlineDraws;
 
   return (
     <div className={`${score.container}`}>
       <ul>
-        <li className={`${score.elem} ${score.x} ${winner === "X" && score.shake}`}>
-          <p>X wins</p>
+        <li className={`${score.elem} ${score.x} ${yourWins && score.shake}`}>
+          <p>{!isOnlineMode ? "X wins" : "You"}</p>
           <span>{xWins}</span>
         </li>
-        <li className={`${score.elem} ${score.draw} ${winner === "draw" && score.shake}`}>
+        <li className={`${score.elem} ${score.draw} ${onlineDraws && score.shake}`}>
           <p>Draws</p>
           <span>{draws}</span>
         </li>
-        <li className={`${score.elem} ${score.o} ${winner === "O" && score.shake}`}>
-          <p>O wins</p>
+        <li className={`${score.elem} ${score.o} ${opponentWins && score.shake}`}>
+          <p>{!isOnlineMode ? "O wins" : "Opponent"}</p>
           <span>{oWins}</span>
         </li>
       </ul>

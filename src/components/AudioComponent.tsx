@@ -8,7 +8,7 @@ const xAudio = new Audio("https://cdn.jsdelivr.net/gh/oneslaught/React-Tic-Tac-T
 const oAudio = new Audio("https://cdn.jsdelivr.net/gh/oneslaught/React-Tic-Tac-Toe/public/assets/o_sound.ogg");
 
 function playSound(audio: HTMLAudioElement) {
-  audio.play().catch((error) => {
+  audio.play().catch((error: unknown) => {
     console.error("Failed to play sound:", error);
   });
   audio.currentTime = 0;
@@ -25,7 +25,7 @@ export const AudioComponent = ({ children }: PropsWithChildren) => {
         playSound(oAudio);
       }
     }
-  }, [turn]);
+  }, [turn, gameInProgress]);
 
   useEffect(() => {
     if (winner === "X") {

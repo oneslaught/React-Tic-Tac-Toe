@@ -1,18 +1,18 @@
 import React, { PropsWithChildren, createContext, useCallback, useContext, useMemo, useState } from "react";
 
 import calculateWinner from "../CalculateWinner";
-import { SquareValue } from "../../types";
+import { PlayerSymbol, SquareValue } from "../../types";
 
 type TurnType = "X" | "O";
 
-interface GameContextType {
+type GameContextType = {
   turn: TurnType;
   currentSquares: SquareValue[];
   resetGame: VoidFunction;
   winner: SquareValue | "draw";
   gameInProgress: boolean;
-  handlePlay: (index: number) => void;
-}
+  handlePlay: (index: number, symbol: PlayerSymbol) => void;
+};
 
 const GameContext = createContext<GameContextType | undefined>(undefined);
 
@@ -25,21 +25,21 @@ export function GameProvider({ children }: PropsWithChildren) {
   const winner = useMemo(() => calculateWinner(currentSquares), [currentSquares]);
 
   const handlePlay = useCallback(
-    (index: number) => {
+    (index: number, symbol: PlayerSymbol) => {
       if (winner) return;
       const nextSquares = currentSquares.slice();
-      nextSquares[index] = turn === "X" ? "X" : "O";
+      nextSquares[index] = symbol;
 
       setHistory([...history, nextSquares]);
-      setTurn(turn === "X" ? "O" : "X");
+      setTurn(symbol === "X" ? "O" : "X");
     },
-    [winner, currentSquares, turn],
+    [winner, currentSquares, history],
   );
 
   const resetGame = useCallback(() => {
     setTurn(history[1]?.find((v) => !!v) === "X" ? "O" : "X");
     setHistory([Array(9).fill(undefined)]);
-  }, [history, setTurn, setHistory]);
+  }, [setHistory, setTurn, history]);
 
   const contextValue: GameContextType = useMemo(
     () => ({

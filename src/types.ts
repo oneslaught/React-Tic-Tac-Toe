@@ -1,13 +1,33 @@
-export interface TurnMessage {
-  type: "TURN";
+type BaseTurnMessage = {
   position: number;
-  symbol: "O" | "X";
-}
+};
 
-export interface ResetMessage {
+export type ClientTurnMessage = BaseTurnMessage & {
+  type: "CLIENT_TURN";
+};
+
+export type ResetMessage = {
   type: "RESET";
-}
+};
 
-export type Message = TurnMessage | ResetMessage;
+export type ClientMessage = ClientTurnMessage | ResetMessage;
 
-export type SquareValue = "O" | "X" | undefined;
+export type ServerMessage = ServerTurnMessage | ResetMessage | GameOverMessage;
+
+export type SquareValue = PlayerSymbol | undefined;
+
+export type PlayerSymbol = "O" | "X";
+
+export type GameOverMessage = {
+  type: "GAME_OVER";
+  playerWins: number;
+  opponentWins: number;
+  draws: number;
+  winner: "YOU" | "OPPONENT" | "DRAW";
+};
+
+export type ServerTurnMessage = BaseTurnMessage & {
+  type: "SERVER_TURN";
+  yourTurn: boolean;
+  symbol: PlayerSymbol;
+};

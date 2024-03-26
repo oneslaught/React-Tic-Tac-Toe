@@ -4,11 +4,11 @@ import React from "react";
 import square from "../styles/square.module.css";
 import { SquareValue } from "../types";
 
-interface SquareProps {
+type SquareProps = {
   isWinningSquare?: boolean;
   onSquareClick: () => void;
   value: SquareValue;
-}
+};
 
 const Square: React.FC<SquareProps> = ({ isWinningSquare, onSquareClick, value }) => {
   return (

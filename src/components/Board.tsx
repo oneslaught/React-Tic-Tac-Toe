@@ -1,22 +1,37 @@
 import React from "react";
 
 import board from "../styles/board.module.css";
-import { isWinningSquare } from "./CalculateWinner";
 import { useOnlineContext } from "./context/OnlineProvider";
 import Square from "./Square";
 import { useGameContext } from "./context/GameProvider";
+import { SquareValue } from "../types";
+import { lines } from "./CalculateWinner";
 
 export default function Board() {
-  const { currentSquares, handlePlay, turn } = useGameContext();
+  const { currentSquares, handlePlay, turn, winner } = useGameContext();
   const { isOnlineMode, send } = useOnlineContext();
 
   function handleClick(i: number) {
     if (isOnlineMode) {
-      send({ type: "TURN", position: i, symbol: turn });
+      send({ type: "CLIENT_TURN", position: i });
     } else {
-      handlePlay(i);
+      handlePlay(i, turn);
     }
   }
+
+  const isWinningSquare = (index: number, squares: SquareValue[]): boolean => {
+    if (winner === "draw" || !winner) {
+      return false;
+    }
+
+    for (const line of lines) {
+      if (line.includes(index) && line.every((i) => squares[i] === winner)) {
+        return true;
+      }
+    }
+
+    return false;
+  };
 
   return (
     <div className={`${board.container}`}>
