@@ -31,3 +31,13 @@ export type ServerTurnMessage = BaseTurnMessage & {
   yourTurn: boolean;
   symbol: PlayerSymbol;
 };
+
+export type ModalProps = {
+  handleClose: () => void;
+  modalOpen: boolean;
+};
+
+export type BackdropProps = {
+  children: React.ReactNode;
+  onClick: () => void;
+};

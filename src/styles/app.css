@@ -17,4 +17,5 @@ body {
   user-select: none;
   font-family: "Dosis", sans-serif;
   font-weight: 600;
+  overflow: hidden;
 }
