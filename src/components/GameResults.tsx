@@ -12,15 +12,23 @@ export default function GameResults() {
   let fastFlickerClass = results.fastFlicker!;
   let flickerClass = results.flicker!;
 
-  if ((winner === "X" && onlineWinner === "YOU") || (winner === "O" && onlineWinner === "OPPONENT")) {
+  if (
+    (isOnlineMode && winner === "X" && onlineWinner === "YOU") ||
+    (isOnlineMode && winner === "O" && onlineWinner === "OPPONENT") ||
+    (!isOnlineMode && winner === "X")
+  ) {
     containerClass += ` ${results.signX}`;
     fastFlickerClass += ` ${results.fastFlickerX}`;
     flickerClass += ` ${results.flickerX}`;
-  } else if ((winner === "O" && onlineWinner === "YOU") || (winner === "X" && onlineWinner === "OPPONENT")) {
+  } else if (
+    (isOnlineMode && winner === "O" && onlineWinner === "YOU") ||
+    (isOnlineMode && winner === "X" && onlineWinner === "OPPONENT") ||
+    (!isOnlineMode && winner === "O")
+  ) {
     containerClass += ` ${results.sign}`;
     fastFlickerClass += ` ${results.fastFlicker}`;
     flickerClass += ` ${results.flicker}`;
-  } else if (winner === "draw" && onlineWinner === "DRAW") {
+  } else if ((isOnlineMode && onlineWinner === "DRAW") || (!isOnlineMode && winner === "draw")) {
     containerClass += ` ${results.signD}`;
     fastFlickerClass += ` ${results.fastFlickerD}`;
     flickerClass += ` ${results.flickerD}`;
@@ -28,16 +36,16 @@ export default function GameResults() {
 
   return (
     <div className={`${results.container} ${containerClass} ${winner ? "" : results.hidden}`}>
-      {/* {winner && winner !== "draw" && (
+      {!isOnlineMode && winner && winner !== "draw" && (
         <div className={`${results.font}`}>
           <span className={fastFlickerClass}>{winner} </span>w<span className={flickerClass}>o</span>n
         </div>
       )}
-      {winner === "draw" && (
+      {!isOnlineMode && winner === "draw" && (
         <div className={`${results.font}`}>
           <span className={fastFlickerClass}>D</span>r<span className={flickerClass}>a</span>w
         </div>
-      )} */}
+      )}
       {isOnlineMode && onlineWinner && onlineWinner !== "DRAW" && (
         <div className={`${results.font}`}>
           {onlineWinner === "YOU" && (
