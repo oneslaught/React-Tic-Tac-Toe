@@ -11,6 +11,7 @@ type OnlineContext = {
   yourWins: number;
   opponentWins: number;
   draws: number;
+  onlineWinner: string;
 };
 
 const OnlineContext = createContext<OnlineContext | undefined>(undefined);
@@ -24,6 +25,7 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
   const [yourWins, setYourWins] = useState(0);
   const [opponentWins, setOpponentWins] = useState(0);
   const [draws, setDraws] = useState(0);
+  const [onlineWinner, setOnlineWinner] = useState("");
 
   useEffect(() => {
     if (connection) {
@@ -49,6 +51,7 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
               setYourWins(message.playerWins);
               setOpponentWins(message.opponentWins);
               setDraws(message.draws);
+              setOnlineWinner(message.winner);
               break;
           }
         } catch (err) {
@@ -88,8 +91,9 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
       yourWins,
       opponentWins,
       draws,
+      onlineWinner,
     }),
-    [connect, disconnect, draws, onlineMode, opponentWins, send, yourTurn, yourWins],
+    [connect, disconnect, draws, onlineMode, opponentWins, send, yourTurn, yourWins, onlineWinner],
   );
 
   return <OnlineContext.Provider value={onlineContext}>{children}</OnlineContext.Provider>;
