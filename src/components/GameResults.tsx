@@ -50,8 +50,8 @@ export default function GameResults() {
         <div className={`${results.font}`}>
           {onlineWinner === "YOU" && (
             <>
-              <span className={fastFlickerClass}>Y</span>o<span className={flickerClass}>u </span>w
-              <span className={fastFlickerClass}>o</span>
+              <span className={fastFlickerClass}>Y</span>
+              <span className={flickerClass}>o</span>u w<span className={fastFlickerClass}>o</span>
               <span className={flickerClass}>n</span>
             </>
           )}

@@ -98,8 +98,6 @@ function onConnect(wsClient: IdentifiableWebSocket) {
         winner: "OPPONENT",
         type: "GAME_OVER",
       });
-      // player.send(`You won!`);
-      // opponent.send(`You lost.`);
     } else if (winner === opponent.symbol) {
       opponent.wins += 1;
       sendGameResults(player, {
@@ -116,8 +114,6 @@ function onConnect(wsClient: IdentifiableWebSocket) {
         winner: "YOU",
         type: "GAME_OVER",
       });
-      // player.send(`You lost.`);
-      // opponent.send(`You won!`);
     } else if (winner === "draw") {
       draws += 1;
       sendGameResults(player, {
@@ -134,9 +130,6 @@ function onConnect(wsClient: IdentifiableWebSocket) {
         winner: "DRAW",
         type: "GAME_OVER",
       });
-      // console.log(draws);
-      // player.send(`It's a draw!`);
-      // opponent.send(`It's a draw!`);
     }
 
     sendTurnEvent(player, {
