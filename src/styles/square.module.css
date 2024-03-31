@@ -19,12 +19,6 @@
   border: 8px solid transparent;
 }
 
-.scale {
-  width: 100px;
-  height: 100px;
-  border-radius: 4px;
-}
-
 .X::after,
 .X::before {
   position: absolute;
@@ -60,5 +54,13 @@
   }
   to {
     transform: scale(0.9);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .style {
+    width: 100px;
+    height: 100px;
+    border-radius: 4px;
   }
 }

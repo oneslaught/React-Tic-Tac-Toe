@@ -12,6 +12,8 @@ type OnlineContext = {
   opponentWins: number;
   draws: number;
   onlineWinner: string;
+  modalOpen: boolean;
+  setModalOpen: (isOpen: boolean) => void;
 };
 
 const OnlineContext = createContext<OnlineContext | undefined>(undefined);
@@ -26,6 +28,7 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
   const [opponentWins, setOpponentWins] = useState(0);
   const [draws, setDraws] = useState(0);
   const [onlineWinner, setOnlineWinner] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     if (connection) {
@@ -46,6 +49,12 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
             case "RESET":
               resetGame();
               setYourTurn(true);
+              break;
+            case "WAITING":
+              setModalOpen(true);
+              break;
+            case "GAME_STARTED":
+              setModalOpen(false);
               break;
             case "GAME_OVER":
               setYourWins(message.playerWins);
@@ -92,8 +101,10 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
       opponentWins,
       draws,
       onlineWinner,
+      modalOpen,
+      setModalOpen,
     }),
-    [connect, disconnect, draws, onlineMode, opponentWins, send, yourTurn, yourWins, onlineWinner],
+    [connect, disconnect, draws, onlineMode, opponentWins, send, yourTurn, yourWins, onlineWinner, modalOpen, setModalOpen],
   );
 
   return <OnlineContext.Provider value={onlineContext}>{children}</OnlineContext.Provider>;

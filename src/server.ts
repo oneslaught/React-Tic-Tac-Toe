@@ -30,7 +30,7 @@ function onConnect(wsClient: IdentifiableWebSocket) {
   if (Object.keys(waitingRoom).length === 0) {
     waitingRoom[id] = wsClient;
     console.log(JSON.stringify(Object.keys(waitingRoom)));
-    wsClient.send("Waiting for opponent");
+    wsClient.send(JSON.stringify({ type: "WAITING" }));
   } else {
     const opponentId = Object.keys(waitingRoom)[0];
     playerA = wsClient;
@@ -38,8 +38,8 @@ function onConnect(wsClient: IdentifiableWebSocket) {
 
     // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
     delete waitingRoom[opponentId!];
-    playerA.send("Game started");
-    playerB.send("Game started");
+    playerA.send(JSON.stringify({ type: "GAME_STARTED" }));
+    playerB.send(JSON.stringify({ type: "GAME_STARTED" }));
 
     playerA.on("message", function (data: string) {
       const message = JSON.parse(data) as ClientMessage;
@@ -191,8 +191,14 @@ function onConnect(wsClient: IdentifiableWebSocket) {
   function resetGame() {
     board = Array<SquareValue>(9).fill(undefined);
     currentPlayer = undefined;
-    playerA.send(JSON.stringify({ type: "RESET" }));
-    playerB.send(JSON.stringify({ type: "RESET" }));
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (playerA) {
+      playerA.send(JSON.stringify({ type: "RESET" }));
+    }
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (playerB) {
+      playerB.send(JSON.stringify({ type: "RESET" }));
+    }
   }
 
   wsClient.on("close", function () {

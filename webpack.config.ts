@@ -36,8 +36,8 @@ const webpackConfig: Configuration = {
     path: path.resolve(__dirname, "./dist"),
   },
   performance: {
-    maxAssetSize: 512 * 1024,
-    maxEntrypointSize: 512 * 1024,
+    maxAssetSize: 512 * 1024 * 2,
+    maxEntrypointSize: 512 * 1024 * 2,
   },
   plugins: [
     new HtmlWebpackPlugin({

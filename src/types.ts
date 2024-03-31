@@ -12,7 +12,7 @@ export type ResetMessage = {
 
 export type ClientMessage = ClientTurnMessage | ResetMessage;
 
-export type ServerMessage = ServerTurnMessage | ResetMessage | GameOverMessage;
+export type ServerMessage = ServerTurnMessage | ResetMessage | GameOverMessage | WaitingForOpponent | GameStartedMessage;
 
 export type SquareValue = PlayerSymbol | undefined;
 
@@ -32,12 +32,10 @@ export type ServerTurnMessage = BaseTurnMessage & {
   symbol: PlayerSymbol;
 };
 
-export type ModalProps = {
-  handleClose: () => void;
-  modalOpen: boolean;
+export type GameStartedMessage = {
+  type: "GAME_STARTED";
 };
 
-export type BackdropProps = {
-  children: React.ReactNode;
-  onClick: () => void;
+export type WaitingForOpponent = {
+  type: "WAITING";
 };

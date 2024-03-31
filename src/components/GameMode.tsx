@@ -1,30 +1,18 @@
-import { motion, AnimatePresence } from "framer-motion";
-import React, { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import React from "react";
 
 import modeButtonStyle from "../styles/game-mode.module.css";
 import { useGameContext } from "./context/GameProvider";
 import { useOnlineContext } from "./context/OnlineProvider";
-import Modal from "./Modal";
+import CustomModal from "./CustomModal";
 
 export default function GameMode() {
   const { gameInProgress } = useGameContext();
-  const { connect, disconnect, isOnlineMode } = useOnlineContext();
+  const { connect, disconnect, isOnlineMode, modalOpen, setModalOpen } = useOnlineContext();
 
-  const [modalOpen, setModalOpen] = useState(false);
-  const close = () => {
+  const handleOnlineClick = () => {
     setModalOpen(false);
-  };
-  const open = () => {
-    setModalOpen(true);
-  };
-
-  const handleClick = () => {
     connect();
-    if (modalOpen) {
-      close();
-    } else {
-      open();
-    }
   };
 
   return (
@@ -41,14 +29,21 @@ export default function GameMode() {
         className={`${modeButtonStyle.button} ${modeButtonStyle.online} ${gameInProgress && modeButtonStyle.hidden} ${
           isOnlineMode && modeButtonStyle.clicked
         }`}
-        onClick={handleClick}
+        onClick={handleOnlineClick}
       >
         Online
       </motion.button>
-
-      <AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
-        {modalOpen && <Modal modalOpen={modalOpen} handleClose={close} />}
-      </AnimatePresence>
+      {modalOpen && (
+        <AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
+          <CustomModal
+            modalOpen={modalOpen}
+            handleClose={() => {
+              setModalOpen(false);
+              disconnect();
+            }}
+          />
+        </AnimatePresence>
+      )}
     </div>
   );
 }
