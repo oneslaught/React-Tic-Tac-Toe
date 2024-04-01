@@ -1,11 +1,13 @@
 import React, { PropsWithChildren, useEffect } from "react";
 import { useGameContext } from "./context/GameProvider";
+import { useOnlineContext } from "./context/OnlineProvider";
 
 const winXAudio = new Audio("https://cdn.jsdelivr.net/gh/oneslaught/React-Tic-Tac-Toe/public/assets/winX_sound.ogg");
 const winOAudio = new Audio("https://cdn.jsdelivr.net/gh/oneslaught/React-Tic-Tac-Toe/public/assets/winO_sound.ogg");
 const drawAudio = new Audio("https://cdn.jsdelivr.net/gh/oneslaught/React-Tic-Tac-Toe/public/assets/draw_sound.ogg");
 const xAudio = new Audio("https://cdn.jsdelivr.net/gh/oneslaught/React-Tic-Tac-Toe/public/assets/x_sound.ogg");
 const oAudio = new Audio("https://cdn.jsdelivr.net/gh/oneslaught/React-Tic-Tac-Toe/public/assets/o_sound.ogg");
+const gameStartedAudio = new Audio("https://cdn.jsdelivr.net/gh/oneslaught/React-Tic-Tac-Toe/public/assets/gameStarted_sound.ogg");
 
 function playSound(audio: HTMLAudioElement) {
   audio.play().catch((error: unknown) => {
@@ -16,6 +18,7 @@ function playSound(audio: HTMLAudioElement) {
 
 export const AudioComponent = ({ children }: PropsWithChildren) => {
   const { turn, gameInProgress, winner } = useGameContext();
+  const { gameStarted } = useOnlineContext();
 
   useEffect(() => {
     if (gameInProgress) {
@@ -36,6 +39,12 @@ export const AudioComponent = ({ children }: PropsWithChildren) => {
       playSound(drawAudio);
     }
   }, [winner]);
+
+  useEffect(() => {
+    if (gameStarted) {
+      playSound(gameStartedAudio);
+    }
+  }, [gameStarted]);
 
   return <>{children}</>;
 };
