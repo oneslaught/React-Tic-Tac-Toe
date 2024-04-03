@@ -10,6 +10,7 @@ import "./styles/app.css";
 import { AudioComponent } from "./components/AudioComponent";
 import { GameProvider } from "./components/context/GameProvider";
 import { OnlineProvider } from "./components/context/OnlineProvider";
+import GameNotification from "./components/GameNotification";
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
       <GameProvider>
         <OnlineProvider>
           <AudioComponent>
+            <GameNotification />
             <PlayerTurn />
             <GameScore />
             <Board />

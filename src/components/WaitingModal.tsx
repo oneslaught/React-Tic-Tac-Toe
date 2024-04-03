@@ -1,7 +1,7 @@
 import React from "react";
 
 import { motion } from "framer-motion";
-import modal from "../styles/modal.module.css";
+import modal from "../styles/waiting-modal.module.css";
 import CloseIcon from "@mui/icons-material/Close";
 import Modal from "@mui/material/Modal";
 
@@ -32,7 +32,7 @@ type ModalProps = {
   modalOpen: boolean;
 };
 
-const CustomModal: React.FC<ModalProps> = ({ handleClose, modalOpen }) => {
+const WaitingModal: React.FC<ModalProps> = ({ handleClose, modalOpen }) => {
   return (
     <Modal open={modalOpen}>
       <>
@@ -59,4 +59,4 @@ const CustomModal: React.FC<ModalProps> = ({ handleClose, modalOpen }) => {
   );
 };
 
-export default CustomModal;
+export default WaitingModal;

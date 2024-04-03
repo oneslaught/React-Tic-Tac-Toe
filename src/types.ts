@@ -12,7 +12,7 @@ export type ResetMessage = {
 
 export type ClientMessage = ClientTurnMessage | ResetMessage;
 
-export type ServerMessage = ServerTurnMessage | ResetMessage | GameOverMessage | WaitingForOpponent | GameStartedMessage;
+export type ServerMessage = ServerTurnMessage | ResetMessage | GameOverMessage | PlayerDisconnect | WaitingForOpponent | GameStartedMessage;
 
 export type SquareValue = PlayerSymbol | undefined;
 
@@ -38,4 +38,8 @@ export type GameStartedMessage = {
 
 export type WaitingForOpponent = {
   type: "WAITING";
+};
+
+export type PlayerDisconnect = {
+  type: "DISCONNECT";
 };

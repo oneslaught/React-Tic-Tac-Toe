@@ -23,6 +23,8 @@ function onConnect(wsClient: IdentifiableWebSocket) {
   wsClient.isAlive = true;
   wsClient.wins = 0;
 
+  console.log("Client connected:", wsClient.id);
+
   wsClient.on("pong", () => {
     wsClient.isAlive = true;
   });
@@ -31,6 +33,7 @@ function onConnect(wsClient: IdentifiableWebSocket) {
     waitingRoom[id] = wsClient;
     console.log(JSON.stringify(Object.keys(waitingRoom)));
     wsClient.send(JSON.stringify({ type: "WAITING" }));
+    console.log("Client waiting:", wsClient.id);
   } else {
     const opponentId = Object.keys(waitingRoom)[0];
     playerA = wsClient;
@@ -40,6 +43,7 @@ function onConnect(wsClient: IdentifiableWebSocket) {
     delete waitingRoom[opponentId!];
     playerA.send(JSON.stringify({ type: "GAME_STARTED" }));
     playerB.send(JSON.stringify({ type: "GAME_STARTED" }));
+    console.log("Game started");
 
     playerA.on("message", function (data: string) {
       const message = JSON.parse(data) as ClientMessage;
@@ -65,7 +69,6 @@ function onConnect(wsClient: IdentifiableWebSocket) {
       }
     });
   }
-  console.log("Новый пользователь");
 
   function handleTurn(message: ClientTurnMessage, player: IdentifiableWebSocket, opponent: IdentifiableWebSocket) {
     const isFirstTurn = board.every((c) => !c);
@@ -158,8 +161,10 @@ function onConnect(wsClient: IdentifiableWebSocket) {
     const squares = board.map((square) => (square ? square : undefined));
     const winner = CalculateWinner(squares);
     if (winner === "draw") {
+      console.log("We have a draw!");
       return "draw";
     } else if (winner) {
+      console.log("We have a winner!");
       return winner;
     }
     return undefined;
@@ -179,12 +184,11 @@ function onConnect(wsClient: IdentifiableWebSocket) {
   function terminateClient(client: IdentifiableWebSocket) {
     if (client === playerA || client === playerB) {
       const opponent = client === playerA ? playerB : playerA;
-      opponent.send("Your opponent has disconnected");
+      opponent.send(JSON.stringify({ type: "DISCONNECT" }));
     }
 
     client.terminate();
     clearInterval(interval);
-    resetGame();
     console.log("Player disconnected:", client.id);
   }
 
@@ -199,6 +203,7 @@ function onConnect(wsClient: IdentifiableWebSocket) {
     if (playerB) {
       playerB.send(JSON.stringify({ type: "RESET" }));
     }
+    console.log("Board has been cleaned");
   }
 
   wsClient.on("close", function () {

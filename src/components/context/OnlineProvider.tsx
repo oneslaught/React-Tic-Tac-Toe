@@ -5,6 +5,7 @@ import { ClientMessage, ServerMessage } from "../../types";
 type OnlineContext = {
   connect: VoidFunction;
   disconnect: VoidFunction;
+  reconnect: VoidFunction;
   isOnlineMode: boolean;
   send: (payload: ClientMessage) => void;
   yourTurn: boolean;
@@ -14,7 +15,10 @@ type OnlineContext = {
   onlineWinner: string;
   modalOpen: boolean;
   setModalOpen: (isOpen: boolean) => void;
+  setIsDisconnect: (isOpen: boolean) => void;
+  setGameStarted: (isOpen: boolean) => void;
   gameStarted: boolean;
+  isDisconnect: boolean;
 };
 
 const OnlineContext = createContext<OnlineContext | undefined>(undefined);
@@ -31,6 +35,7 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
   const [onlineWinner, setOnlineWinner] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
+  const [isDisconnect, setIsDisconnect] = useState(false);
 
   useEffect(() => {
     if (connection) {
@@ -66,6 +71,10 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
               setDraws(message.draws);
               setOnlineWinner(message.winner);
               break;
+            case "DISCONNECT":
+              setGameStarted(false);
+              setIsDisconnect(true);
+              break;
           }
         } catch (err) {
           console.log(data);
@@ -94,6 +103,14 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
     }
   }, [setConnection, connection]);
 
+  const reconnect = useCallback(() => {
+    if (connection) {
+      connection.close();
+      setConnection(undefined);
+    }
+    connect();
+  }, [connection, connect]);
+
   const onlineContext = useMemo(
     () => ({
       connect,
@@ -108,8 +125,29 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
       modalOpen,
       setModalOpen,
       gameStarted,
+      isDisconnect,
+      setIsDisconnect,
+      setGameStarted,
+      reconnect,
     }),
-    [connect, disconnect, draws, onlineMode, opponentWins, send, yourTurn, yourWins, onlineWinner, modalOpen, setModalOpen, gameStarted],
+    [
+      connect,
+      disconnect,
+      draws,
+      onlineMode,
+      opponentWins,
+      send,
+      yourTurn,
+      yourWins,
+      onlineWinner,
+      modalOpen,
+      setModalOpen,
+      gameStarted,
+      isDisconnect,
+      setIsDisconnect,
+      setGameStarted,
+      reconnect,
+    ],
   );
 
   return <OnlineContext.Provider value={onlineContext}>{children}</OnlineContext.Provider>;
