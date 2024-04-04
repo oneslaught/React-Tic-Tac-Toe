@@ -54,7 +54,7 @@ export default function GameMode() {
               disconnect();
             }}
             handleRestart={() => {
-              // setIsDisconnect(false);
+              setIsDisconnect(false);
               reconnect();
             }}
           />

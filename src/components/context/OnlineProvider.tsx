@@ -90,6 +90,11 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
     [connection],
   );
 
+  const createWebSocket = useCallback(() => {
+    const ws = new WebSocket(`ws://${window.location.host.split(":")[0]}:9017`);
+    setConnection(ws);
+  }, []);
+
   const disconnect = useCallback(() => {
     connection?.close();
     setConnection(undefined);
@@ -98,18 +103,17 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
 
   const connect = useCallback(() => {
     if (!connection) {
-      const ws = new WebSocket(`ws://${window.location.host.split(":")[0]}:9017`);
-      setConnection(ws);
+      createWebSocket();
     }
-  }, [setConnection, connection]);
+  }, [connection, createWebSocket]);
 
   const reconnect = useCallback(() => {
     if (connection) {
       connection.close();
       setConnection(undefined);
     }
-    connect();
-  }, [connection, connect]);
+    createWebSocket();
+  }, [connection, createWebSocket]);
 
   const onlineContext = useMemo(
     () => ({
