@@ -12,7 +12,14 @@ export type ResetMessage = {
 
 export type ClientMessage = ClientTurnMessage | ResetMessage;
 
-export type ServerMessage = ServerTurnMessage | ResetMessage | GameOverMessage | PlayerDisconnect | WaitingForOpponent | GameStartedMessage;
+export type ServerMessage =
+  | ServerTurnMessage
+  | ResetMessage
+  | GameOverMessage
+  | PlayerDisconnect
+  | WaitingForOpponent
+  | FirstClickMessage
+  | GameStartedMessage;
 
 export type SquareValue = PlayerSymbol | undefined;
 
@@ -29,6 +36,11 @@ export type GameOverMessage = {
 export type ServerTurnMessage = BaseTurnMessage & {
   type: "SERVER_TURN";
   yourTurn: boolean;
+  symbol: PlayerSymbol;
+};
+
+export type FirstClickMessage = {
+  type: "FIRST_CLICK";
   symbol: PlayerSymbol;
 };
 

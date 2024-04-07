@@ -19,6 +19,7 @@ type OnlineContext = {
   setGameStarted: (isOpen: boolean) => void;
   gameStarted: boolean;
   isDisconnect: boolean;
+  clientSymbol: string;
 };
 
 const OnlineContext = createContext<OnlineContext | undefined>(undefined);
@@ -36,6 +37,7 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
   const [isDisconnect, setIsDisconnect] = useState(false);
+  const [clientSymbol, setClientSymbol] = useState<string>("X");
 
   useEffect(() => {
     if (connection) {
@@ -57,9 +59,18 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
               resetGame();
               setYourTurn(true);
               setGameStarted(false);
+              setClientSymbol("X");
+              setOnlineWinner("");
               break;
             case "WAITING":
               setModalOpen(true);
+              break;
+            case "FIRST_CLICK":
+              if (message.symbol === "X") {
+                setClientSymbol("X");
+              } else {
+                setClientSymbol("O");
+              }
               break;
             case "GAME_STARTED":
               setModalOpen(false);
@@ -74,6 +85,9 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
             case "DISCONNECT":
               setGameStarted(false);
               setIsDisconnect(true);
+              setYourTurn(true);
+              setClientSymbol("X");
+              setOnlineWinner("");
               break;
           }
         } catch (err) {
@@ -133,6 +147,7 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
       setIsDisconnect,
       setGameStarted,
       reconnect,
+      clientSymbol,
     }),
     [
       connect,
@@ -151,6 +166,7 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
       setIsDisconnect,
       setGameStarted,
       reconnect,
+      clientSymbol,
     ],
   );
 

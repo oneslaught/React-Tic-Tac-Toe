@@ -46,6 +46,7 @@
     transform: translateX(0);
   }
 }
+
 .x {
   background-color: #019afe;
   color: #fff;
@@ -74,4 +75,11 @@
 
 .elem span {
   font-size: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .container ul li {
+    width: 90px;
+    height: 56px;
+  }
 }

@@ -14,11 +14,6 @@ export default function PlayerTurn() {
       <h3>Turn For</h3>
       <div className={`${turnClass.turnBox} ${turnClass.align}`}>{!isOnlineMode ? "X" : "You"}</div>
       <div className={`${turnClass.turnBox} ${turnClass.align}`}>{!isOnlineMode ? "O" : "Opponent"}</div>
-      {/* <div
-        className={`${isOnlineMode ? turnClass.onlineBg : turnClass.bg} ${
-          turn === "O" && isOnlineMode ? turnClass.onlineOpponentTurn : turn === "O" ? turnClass.oTurn : ""
-        }`}
-      ></div> */}
       <div
         className={`${isOnlineMode ? turnClass.onlineBg : turnClass.bg} ${
           onlineOpponentTurn ? turnClass.onlineOpponentTurn : turn === "O" ? turnClass.oTurn : ""

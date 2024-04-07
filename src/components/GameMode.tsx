@@ -8,7 +8,7 @@ import CustomModal from "./WaitingModal";
 import DisconnectModal from "./DisconnectModal";
 
 export default function GameMode() {
-  const { gameInProgress } = useGameContext();
+  const { gameInProgress, resetGame } = useGameContext();
   const { connect, disconnect, reconnect, isOnlineMode, modalOpen, setModalOpen, isDisconnect, setIsDisconnect } = useOnlineContext();
 
   const handleOnlineClick = () => {
@@ -52,10 +52,12 @@ export default function GameMode() {
             handleExit={() => {
               setIsDisconnect(false);
               disconnect();
+              resetGame();
             }}
             handleRestart={() => {
               setIsDisconnect(false);
               reconnect();
+              resetGame();
             }}
           />
         </AnimatePresence>

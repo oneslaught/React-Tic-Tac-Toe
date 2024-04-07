@@ -76,6 +76,10 @@ function onConnect(wsClient: IdentifiableWebSocket) {
       player.symbol = "X";
       opponent.symbol = "O";
       currentPlayer = opponent;
+
+      player.send(JSON.stringify({ type: "FIRST_CLICK", symbol: player.symbol }));
+      opponent.send(JSON.stringify({ type: "FIRST_CLICK", symbol: opponent.symbol }));
+      console.log("First click");
     } else {
       if (currentPlayer !== player) {
         return;
