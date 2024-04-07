@@ -33,7 +33,7 @@
   border-right: none;
 }
 
-.bg {
+.bgX {
   position: relative;
   top: -40px;
   left: 0;
@@ -44,16 +44,7 @@
   background-color: #019afe;
 }
 
-.oTurn {
-  left: 85px;
-  background-color: rgb(254, 1, 154);
-}
-
-.onlineContainer {
-  width: 260px;
-}
-
-.onlineBg {
+.onlineBgX {
   position: relative;
   top: -40px;
   left: 0;
@@ -64,12 +55,32 @@
   background-color: #019afe;
 }
 
-.onlineYourTurn {
-  right: 130px;
+.onlineBgO {
+  position: relative;
+  top: -40px;
+  left: 0;
+  width: 130px;
+  height: 40px;
+  z-index: -1;
+  transition: 0.2s ease-in-out;
+  background-color: #fe019a;
+}
+
+.oTurn {
+  left: 85px;
+  background-color: #fe019a;
+}
+
+.onlineContainer {
+  width: 260px;
+}
+
+.onlineOpponentTurnX {
+  left: 130px;
   background-color: #019afe;
 }
 
-.onlineOpponentTurn {
+.onlineOpponentTurnO {
   left: 130px;
-  background-color: rgb(254, 1, 154);
+  background-color: #fe019a;
 }
