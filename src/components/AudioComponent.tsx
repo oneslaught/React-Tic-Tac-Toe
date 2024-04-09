@@ -8,6 +8,8 @@ const drawAudio = new Audio("https://cdn.jsdelivr.net/gh/oneslaught/React-Tic-Ta
 const xAudio = new Audio("https://cdn.jsdelivr.net/gh/oneslaught/React-Tic-Tac-Toe/public/assets/x_sound.ogg");
 const oAudio = new Audio("https://cdn.jsdelivr.net/gh/oneslaught/React-Tic-Tac-Toe/public/assets/o_sound.ogg");
 const gameStartedAudio = new Audio("https://cdn.jsdelivr.net/gh/oneslaught/React-Tic-Tac-Toe/public/assets/gameStarted_sound.ogg");
+const onlineWinAudio = new Audio("https://cdn.jsdelivr.net/gh/oneslaught/React-Tic-Tac-Toe/public/assets/onlineWin_sound.ogg");
+const onlineLoseAudio = new Audio("https://cdn.jsdelivr.net/gh/oneslaught/React-Tic-Tac-Toe/public/assets/onlineLose_sound.ogg");
 
 function playSound(audio: HTMLAudioElement) {
   audio.play().catch((error: unknown) => {
@@ -18,7 +20,7 @@ function playSound(audio: HTMLAudioElement) {
 
 export const AudioComponent = ({ children }: PropsWithChildren) => {
   const { turn, gameInProgress, winner } = useGameContext();
-  const { gameStarted } = useOnlineContext();
+  const { gameStarted, isOnlineMode, onlineWinner } = useOnlineContext();
 
   useEffect(() => {
     if (gameInProgress) {
@@ -31,14 +33,24 @@ export const AudioComponent = ({ children }: PropsWithChildren) => {
   }, [turn, gameInProgress]);
 
   useEffect(() => {
-    if (winner === "X") {
-      playSound(winXAudio);
-    } else if (winner === "O") {
-      playSound(winOAudio);
-    } else if (winner === "draw") {
-      playSound(drawAudio);
+    if (!isOnlineMode) {
+      if (winner === "X") {
+        playSound(winXAudio);
+      } else if (winner === "O") {
+        playSound(winOAudio);
+      } else if (winner === "draw") {
+        playSound(drawAudio);
+      }
+    } else {
+      if (onlineWinner === "YOU") {
+        playSound(onlineWinAudio);
+      } else if (onlineWinner === "OPPONENT") {
+        playSound(onlineLoseAudio);
+      } else if (onlineWinner === "DRAW") {
+        playSound(drawAudio);
+      }
     }
-  }, [winner]);
+  }, [isOnlineMode, onlineWinner, winner]);
 
   useEffect(() => {
     if (gameStarted) {
