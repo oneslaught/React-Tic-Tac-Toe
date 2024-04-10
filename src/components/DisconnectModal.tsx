@@ -1,32 +1,11 @@
 import React from "react";
 
 import { motion } from "framer-motion";
-import disconnectStyle from "../styles/disconnect-modal.module.css";
+import modalStyle from "../styles/modals.module.css";
 import Modal from "@mui/material/Modal";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-
-const dropIn = {
-  hidden: {
-    y: "-100vh",
-    opacity: 1,
-  },
-  visible: {
-    y: "0",
-    transform: "translate(-50%, -50%)",
-    opacity: 1,
-    transition: {
-      duration: 0.1,
-      type: "spring",
-      damping: 25,
-      stiffness: 500,
-    },
-  },
-  exit: {
-    y: "100vh",
-    opacity: 0,
-  },
-};
+import { dropIn } from "./WaitingModal";
 
 type ModalProps = {
   handleExit: () => void;
@@ -42,13 +21,13 @@ const CustomModal: React.FC<ModalProps> = ({ handleExit, handleRestart, isDiscon
           onClick={(e) => {
             e.stopPropagation();
           }}
-          className={`${disconnectStyle.disconnectWindow}`}
+          className={`${modalStyle.popupWindow}`}
           variants={dropIn}
           initial="hidden"
           animate="visible"
           exit="exit"
         >
-          <div className={disconnectStyle.titleDisconnect}>Your opponent has disconnected!</div>
+          <div className={modalStyle.popupTitle}>Your opponent has disconnected!</div>
           <Stack direction="row" spacing={2}>
             <Button onClick={handleExit} variant="contained" color="error" sx={{ minWidth: "113px" }}>
               Exit

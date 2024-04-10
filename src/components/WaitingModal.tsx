@@ -1,11 +1,11 @@
 import React from "react";
 
 import { motion } from "framer-motion";
-import modal from "../styles/waiting-modal.module.css";
+import modalStyle from "../styles/modals.module.css";
 import CloseIcon from "@mui/icons-material/Close";
 import Modal from "@mui/material/Modal";
 
-const dropIn = {
+export const dropIn = {
   hidden: {
     y: "-100vh",
     opacity: 1,
@@ -29,30 +29,30 @@ const dropIn = {
 
 type ModalProps = {
   handleClose: () => void;
-  modalOpen: boolean;
+  isWaiting: boolean;
 };
 
-const WaitingModal: React.FC<ModalProps> = ({ handleClose, modalOpen }) => {
+const WaitingModal: React.FC<ModalProps> = ({ handleClose, isWaiting }) => {
   return (
-    <Modal open={modalOpen}>
+    <Modal open={isWaiting}>
       <>
         <motion.div
           onClick={(e) => {
             e.stopPropagation();
           }}
-          className={`${modal.modalWindow}`}
+          className={`${modalStyle.popupWindow}`}
           variants={dropIn}
           initial="hidden"
           animate="visible"
           exit="exit"
         >
-          <div className={modal.titlePopup}>Waiting for opponent</div>
-          <div className={modal.bouncingLoader}>
+          <div className={modalStyle.popupTitle}>Waiting for opponent</div>
+          <div className={modalStyle.bouncingLoader}>
             <div></div>
             <div></div>
             <div></div>
           </div>
-          <CloseIcon onClick={handleClose} className={modal.closeIcon} sx={{ fontSize: 30 }}></CloseIcon>
+          <CloseIcon onClick={handleClose} className={modalStyle.closeIcon} sx={{ fontSize: 30 }}></CloseIcon>
         </motion.div>
       </>
     </Modal>

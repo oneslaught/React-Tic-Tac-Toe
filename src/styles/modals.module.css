@@ -1,4 +1,6 @@
-.modalWindow {
+/* General Properties */
+
+.popupWindow {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -14,11 +16,13 @@
   color: #2b2b2b;
 }
 
-.titlePopup {
+.popupTitle {
   font-size: 40px;
   font-weight: 500;
-  margin: 30px 0 10px;
+  margin: 30px 0 20px;
 }
+
+/* Waiting Modal */
 
 .closeIcon {
   position: relative;
@@ -42,19 +46,21 @@
   animation: bouncing-loader 0.6s infinite alternate;
 }
 
-@keyframes bouncing-loader {
-  to {
-    opacity: 0.1;
-    transform: translateY(-16px);
-  }
-}
-
 .bouncingLoader > div:nth-child(2) {
   animation-delay: 0.2s;
 }
 
 .bouncingLoader > div:nth-child(3) {
   animation-delay: 0.4s;
+}
+
+/* Keyframes and Media */
+
+@keyframes bouncing-loader {
+  to {
+    opacity: 0.1;
+    transform: translateY(-16px);
+  }
 }
 
 @media screen and (max-width: 768px) {

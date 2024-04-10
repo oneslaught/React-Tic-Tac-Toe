@@ -9,10 +9,10 @@ import DisconnectModal from "./DisconnectModal";
 
 export default function GameMode() {
   const { gameInProgress, resetGame } = useGameContext();
-  const { connect, disconnect, reconnect, isOnlineMode, modalOpen, setModalOpen, isDisconnect, setIsDisconnect } = useOnlineContext();
+  const { connect, disconnect, reconnect, isOnlineMode, isWaiting, setIsWaiting, isDisconnect, setIsDisconnect } = useOnlineContext();
 
   const handleOnlineClick = () => {
-    setModalOpen(false);
+    setIsWaiting(false);
     connect();
   };
 
@@ -34,12 +34,12 @@ export default function GameMode() {
       >
         Online
       </motion.button>
-      {modalOpen && (
+      {isWaiting && (
         <AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
           <CustomModal
-            modalOpen={modalOpen}
+            isWaiting={isWaiting}
             handleClose={() => {
-              setModalOpen(false);
+              setIsWaiting(false);
               disconnect();
             }}
           />

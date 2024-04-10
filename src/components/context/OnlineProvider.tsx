@@ -13,8 +13,8 @@ type OnlineContext = {
   opponentWins: number;
   draws: number;
   onlineWinner: string;
-  modalOpen: boolean;
-  setModalOpen: (isOpen: boolean) => void;
+  isWaiting: boolean;
+  setIsWaiting: (isOpen: boolean) => void;
   setIsDisconnect: (isOpen: boolean) => void;
   setGameStarted: (isOpen: boolean) => void;
   gameStarted: boolean;
@@ -34,7 +34,7 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
   const [opponentWins, setOpponentWins] = useState(0);
   const [draws, setDraws] = useState(0);
   const [onlineWinner, setOnlineWinner] = useState("");
-  const [modalOpen, setModalOpen] = useState(false);
+  const [isWaiting, setIsWaiting] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
   const [isDisconnect, setIsDisconnect] = useState(false);
   const [clientSymbol, setClientSymbol] = useState<string>("X");
@@ -63,7 +63,7 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
               setOnlineWinner("");
               break;
             case "WAITING":
-              setModalOpen(true);
+              setIsWaiting(true);
               break;
             case "FIRST_CLICK":
               if (message.symbol === "X") {
@@ -73,7 +73,7 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
               }
               break;
             case "GAME_STARTED":
-              setModalOpen(false);
+              setIsWaiting(false);
               setGameStarted(true);
               break;
             case "GAME_OVER":
@@ -140,8 +140,8 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
       opponentWins,
       draws,
       onlineWinner,
-      modalOpen,
-      setModalOpen,
+      isWaiting,
+      setIsWaiting,
       gameStarted,
       isDisconnect,
       setIsDisconnect,
@@ -159,8 +159,8 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
       yourTurn,
       yourWins,
       onlineWinner,
-      modalOpen,
-      setModalOpen,
+      isWaiting,
+      setIsWaiting,
       gameStarted,
       isDisconnect,
       setIsDisconnect,
