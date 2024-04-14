@@ -1,0 +1,7 @@
+services:
+  server:
+    restart: unless-stopped
+    build:
+     dockerfile: Dockerfile
+    ports:
+      - "9017:9017"

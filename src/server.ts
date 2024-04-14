@@ -71,8 +71,18 @@ function onConnect(wsClient: IdentifiableWebSocket) {
   }
 
   function handleTurn(message: ClientTurnMessage, player: IdentifiableWebSocket, opponent: IdentifiableWebSocket) {
+    if (board[message.position]) {
+      return;
+    }
     const isFirstTurn = board.every((c) => !c);
     if (isFirstTurn) {
+      if (player.symbol === "X") {
+        return;
+      } else {
+        player.symbol = "X";
+        opponent.symbol = "O";
+      }
+
       player.symbol = "X";
       opponent.symbol = "O";
       currentPlayer = opponent;
@@ -87,6 +97,7 @@ function onConnect(wsClient: IdentifiableWebSocket) {
       currentPlayer = opponent;
     }
     board[Number(message.position)] = player.symbol;
+    console.log(`set ${message.position} to ${player.symbol} for ${player.id}`);
 
     const winner = checkWin(board);
     if (winner === player.symbol) {
@@ -201,11 +212,11 @@ function onConnect(wsClient: IdentifiableWebSocket) {
     currentPlayer = undefined;
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (playerA) {
-      playerA.send(JSON.stringify({ type: "RESET" }));
+      playerA.send(JSON.stringify({ type: "RESET", yourTurn: playerA.symbol === "X" ? false : true }));
     }
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (playerB) {
-      playerB.send(JSON.stringify({ type: "RESET" }));
+      playerB.send(JSON.stringify({ type: "RESET", yourTurn: playerB.symbol === "X" ? false : true }));
     }
     console.log("Board has been cleaned");
   }

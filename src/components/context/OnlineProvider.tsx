@@ -57,7 +57,7 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
               break;
             case "RESET":
               resetGame();
-              setYourTurn(true);
+              setYourTurn(message.yourTurn!);
               setGameStarted(false);
               setClientSymbol("X");
               setOnlineWinner("");

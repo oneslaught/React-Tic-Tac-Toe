@@ -8,6 +8,7 @@ export type ClientTurnMessage = BaseTurnMessage & {
 
 export type ResetMessage = {
   type: "RESET";
+  yourTurn?: boolean;
 };
 
 export type ClientMessage = ClientTurnMessage | ResetMessage;
