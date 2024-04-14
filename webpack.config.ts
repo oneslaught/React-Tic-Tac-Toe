@@ -50,7 +50,9 @@ const webpackConfig: Configuration = {
       process: "process/browser",
     }),
     new DefinePlugin({
-      "process.env.WS_ENDPOINT": process.env.NODE_ENV === "production" ? "wss://18.193.130.226:9017" : "ws://localhost:9017",
+      "process.env.WS_ENDPOINT": JSON.stringify(
+        process.env.NODE_ENV === "production" ? "wss://18.193.130.226:9017" : "ws://localhost:9017",
+      ),
     }),
   ],
   resolve: {
