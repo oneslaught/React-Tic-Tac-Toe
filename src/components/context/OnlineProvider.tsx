@@ -105,7 +105,7 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
   );
 
   const createWebSocket = useCallback(() => {
-    const ws = new WebSocket(`ws://${process.env.WS_ENDPOINT}:9017`);
+    const ws = new WebSocket(process.env.WS_ENDPOINT!);
     setConnection(ws);
   }, []);
 
