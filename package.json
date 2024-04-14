@@ -8,6 +8,7 @@
     "@mui/icons-material": "^5.15.14",
     "@mui/material": "^5.15.14",
     "framer-motion": "^11.0.20",
+    "process": "^0.11.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "use-immer": "^0.9.0",
@@ -15,7 +16,7 @@
   },
   "scripts": {
     "start": "webpack server",
-    "build": "webpack",
+    "build": "NODE_ENV=production webpack",
     "deploy": "gh-pages -d dist",
     "server": "ts-node src/server",
     "lint": "eslint ."

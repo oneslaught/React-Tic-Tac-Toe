@@ -1,7 +1,7 @@
 import CopyPlugin from "copy-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import path from "path";
-import { Configuration } from "webpack";
+import { Configuration, DefinePlugin, ProvidePlugin } from "webpack";
 import "webpack-dev-server";
 
 const webpackConfig: Configuration = {
@@ -45,6 +45,12 @@ const webpackConfig: Configuration = {
     }),
     new CopyPlugin({
       patterns: [{ from: "public", to: "public" }],
+    }),
+    new ProvidePlugin({
+      process: "process/browser",
+    }),
+    new DefinePlugin({
+      "process.env.WS_ENDPOINT": JSON.stringify(process.env.NODE_ENV === "production" ? "18.193.130.226" : "localhost"),
     }),
   ],
   resolve: {
