@@ -8,6 +8,7 @@ services:
     ports:
       - 80:80
       - 443:443
+      - 9017:9017
     volumes:
       - $PWD/Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
