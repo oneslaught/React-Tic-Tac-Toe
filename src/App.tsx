@@ -18,12 +18,12 @@ export default function App() {
       <GameProvider>
         <OnlineProvider>
           <AudioComponent>
-            <GameNotification />
             <PlayerTurn />
             <GameScore />
             <Board />
             <GameResults />
             <ResetButton />
+            <GameNotification />
             <GameMode />
           </AudioComponent>
         </OnlineProvider>

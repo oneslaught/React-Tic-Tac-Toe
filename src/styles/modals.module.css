@@ -64,8 +64,8 @@
 }
 
 @media screen and (max-width: 768px) {
-  .modalWindow {
-    width: 340px;
+  .popupWindow {
+    width: 360px;
   }
 
   .bouncingLoader {

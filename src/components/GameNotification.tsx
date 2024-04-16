@@ -18,5 +18,9 @@ export default function GameNotification() {
     }
   }, [gameStarted, setGameStarted]);
 
-  return <div className={`${gameNotification.notification} ${gameStarted ? gameNotification.show : ""}`}>Game started!</div>;
+  return (
+    <div className={`${gameNotification.container}`}>
+      <div className={`${gameNotification.notification} ${gameStarted ? gameNotification.show : ""}`}>Game started!</div>
+    </div>
+  );
 }
