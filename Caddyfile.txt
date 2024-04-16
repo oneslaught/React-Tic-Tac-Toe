@@ -1,0 +1,3 @@
+tic-tac-toe.oneslaught.online {
+	reverse_proxy whoami:80
+}

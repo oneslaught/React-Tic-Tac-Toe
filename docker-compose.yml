@@ -2,6 +2,21 @@ services:
   server:
     restart: unless-stopped
     build:
-     dockerfile: Dockerfile
+      dockerfile: Dockerfile
+  caddy:
+    image: caddy
     ports:
-      - "9017:9017"
+      - 80:80
+      - 443:443
+    volumes:
+      - $PWD/Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    restart: unless-stopped
+  whoami:
+    image: traefik/whoami
+
+volumes:
+  caddy_data:
+    external: true
+  caddy_config:
