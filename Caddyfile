@@ -1,3 +1,7 @@
 tic-tac-toe.oneslaught.online {
 	reverse_proxy whoami:80
 }
+
+tic-tac-toe.oneslaught.online:9017 {
+	reverse_proxy server:9017
+}
