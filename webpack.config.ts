@@ -51,7 +51,7 @@ const webpackConfig: Configuration = {
     }),
     new DefinePlugin({
       "process.env.WS_ENDPOINT": JSON.stringify(
-        process.env.NODE_ENV === "production" ? "wss://18.193.130.226:9017" : "ws://localhost:9017",
+        process.env.NODE_ENV === "production" ? "https://tic-tac-toe.oneslaught.online/" : "ws://localhost:9017",
       ),
     }),
   ],
