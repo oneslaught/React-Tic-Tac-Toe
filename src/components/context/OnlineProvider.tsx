@@ -20,6 +20,9 @@ type OnlineContext = {
   gameStarted: boolean;
   isDisconnect: boolean;
   clientSymbol: string;
+  setYourWins: (newValue: number) => void;
+  setOpponentWins: (newValue: number) => void;
+  setDraws: (newValue: number) => void;
 };
 
 const OnlineContext = createContext<OnlineContext | undefined>(undefined);
@@ -75,9 +78,6 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
             case "GAME_STARTED":
               setIsWaiting(false);
               setGameStarted(true);
-              setYourWins(0);
-              setOpponentWins(0);
-              setDraws(0);
               break;
             case "GAME_OVER":
               setYourWins(message.playerWins);
@@ -91,9 +91,6 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
               setYourTurn(true);
               setClientSymbol("X");
               setOnlineWinner("");
-              setYourWins(0);
-              setOpponentWins(0);
-              setDraws(0);
               break;
           }
         } catch (err) {
@@ -154,6 +151,9 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
       setGameStarted,
       reconnect,
       clientSymbol,
+      setDraws,
+      setOpponentWins,
+      setYourWins,
     }),
     [
       connect,
@@ -173,6 +173,9 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
       setGameStarted,
       reconnect,
       clientSymbol,
+      setDraws,
+      setOpponentWins,
+      setYourWins,
     ],
   );
 

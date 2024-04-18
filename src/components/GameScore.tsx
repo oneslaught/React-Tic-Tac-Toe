@@ -11,7 +11,17 @@ export default function GameScore() {
   const [animateShake, setAnimateShake] = useState(false);
 
   const { winner } = useGameContext();
-  const { isOnlineMode, yourWins, opponentWins, draws: onlineDraws, clientSymbol, onlineWinner } = useOnlineContext();
+  const {
+    isOnlineMode,
+    yourWins,
+    opponentWins,
+    draws: onlineDraws,
+    clientSymbol,
+    onlineWinner,
+    setOpponentWins,
+    setYourWins,
+    setDraws,
+  } = useOnlineContext();
 
   function removeShake() {
     setAnimateShake(true);
@@ -28,6 +38,10 @@ export default function GameScore() {
     setOfflineXWins(0);
     setOfflineOWins(0);
     setOfflineDraws(0);
+    setOpponentWins(0);
+    setYourWins(0);
+    setDraws(0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOnlineMode]);
 
   useEffect(() => {
