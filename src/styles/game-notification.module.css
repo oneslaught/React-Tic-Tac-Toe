@@ -24,6 +24,7 @@
     width: 90%;
     bottom: 60px;
     background-color: #6dc45fc7;
+    z-index: -10;
   }
 
   .container {
