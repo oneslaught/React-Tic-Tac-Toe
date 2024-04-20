@@ -72,6 +72,7 @@ function onConnect(wsClient: IdentifiableWebSocket) {
   }
 
   function handleTurn(message: ClientTurnMessage, player: IdentifiableWebSocket, opponent: IdentifiableWebSocket) {
+    const winner = checkWin(board);
     if (board[message.position]) {
       return;
     }
@@ -92,14 +93,13 @@ function onConnect(wsClient: IdentifiableWebSocket) {
       opponent.send(JSON.stringify({ type: "FIRST_CLICK", symbol: opponent.symbol }));
       console.log("First click");
     } else {
-      if (currentPlayer !== player) {
+      if (currentPlayer !== player || winner) {
         return;
       }
       currentPlayer = opponent;
     }
     board[Number(message.position)] = player.symbol;
     console.log(`set ${message.position} to ${player.symbol} for ${player.id}`);
-    const winner = checkWin(board);
     if (winner === player.symbol) {
       player.wins += 1;
       sendGameResults(player, {
