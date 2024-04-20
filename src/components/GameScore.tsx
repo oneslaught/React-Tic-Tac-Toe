@@ -11,17 +11,8 @@ export default function GameScore() {
   const [animateShake, setAnimateShake] = useState(false);
 
   const { winner } = useGameContext();
-  const {
-    isOnlineMode,
-    yourWins,
-    opponentWins,
-    draws: onlineDraws,
-    clientSymbol,
-    onlineWinner,
-    setOpponentWins,
-    setYourWins,
-    setDraws,
-  } = useOnlineContext();
+  const { isOnlineMode, yourWins, opponentWins, draws, clientSymbol, onlineWinner, setYourWins, setOpponentWins, setDraws } =
+    useOnlineContext();
 
   function removeShake() {
     setAnimateShake(true);
@@ -38,9 +29,10 @@ export default function GameScore() {
     setOfflineXWins(0);
     setOfflineOWins(0);
     setOfflineDraws(0);
-    setOpponentWins(0);
     setYourWins(0);
+    setOpponentWins(0);
     setDraws(0);
+    console.log(draws);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOnlineMode]);
 
@@ -67,7 +59,7 @@ export default function GameScore() {
 
   const xWins = isOnlineMode ? yourWins : offlineXWins;
   const oWins = isOnlineMode ? opponentWins : offlineOWins;
-  const draws = isOnlineMode ? onlineDraws : offlineDraws;
+  const gameDraws = isOnlineMode ? draws : offlineDraws;
 
   const offlineShakeX = !isOnlineMode && winner === "X" && animateShake && score.shake;
   const offlineShakeO = !isOnlineMode && winner === "O" && animateShake && score.shake;
@@ -98,7 +90,7 @@ export default function GameScore() {
         </li>
         <li className={`${score.elem} ${score.draw} ${offlineShakeDraw} ${onlineShakeDraw}`}>
           <p>Draws</p>
-          <span>{draws}</span>
+          <span>{gameDraws}</span>
         </li>
         <li className={`${score.elem} ${!isOnlineMode && score.o} ${onlineScoreO} ${offlineShakeO} ${onlineShakeOpponent}`}>
           <p>{!isOnlineMode ? "O wins" : "Opponent"}</p>

@@ -78,6 +78,9 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
             case "GAME_STARTED":
               setIsWaiting(false);
               setGameStarted(true);
+              setYourWins(0);
+              setOpponentWins(0);
+              setDraws(0);
               break;
             case "GAME_OVER":
               setYourWins(message.playerWins);

@@ -22,6 +22,8 @@ function onConnect(wsClient: IdentifiableWebSocket) {
   wsClient.id = id;
   wsClient.isAlive = true;
   wsClient.wins = 0;
+  draws = 0;
+  console.log(draws);
 
   console.log("Client connected:", wsClient.id);
 
