@@ -134,7 +134,8 @@ function onConnect(wsClient: IdentifiableWebSocket) {
         winner: "YOU",
         type: "GAME_OVER",
       });
-    } else {
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    } else if (winner === "draw") {
       draws += 1;
       sendGameResults(player, {
         playerWins: player.wins,
