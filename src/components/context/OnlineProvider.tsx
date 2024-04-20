@@ -45,7 +45,6 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     if (connection) {
       connection.onopen = () => {
-        console.log("подключился");
         setOnlineMode(true);
       };
       connection.onmessage = (e) => {
