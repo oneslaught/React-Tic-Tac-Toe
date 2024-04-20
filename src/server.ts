@@ -72,11 +72,9 @@ function onConnect(wsClient: IdentifiableWebSocket) {
   }
 
   function handleTurn(message: ClientTurnMessage, player: IdentifiableWebSocket, opponent: IdentifiableWebSocket) {
-    const winner = checkWin(board);
     if (board[message.position]) {
       return;
     }
-    if (winner) return;
     const isFirstTurn = board.every((c) => !c);
     if (isFirstTurn) {
       if (player.symbol === "X") {
@@ -101,7 +99,7 @@ function onConnect(wsClient: IdentifiableWebSocket) {
     }
     board[Number(message.position)] = player.symbol;
     console.log(`set ${message.position} to ${player.symbol} for ${player.id}`);
-
+    const winner = checkWin(board);
     if (winner === player.symbol) {
       player.wins += 1;
       sendGameResults(player, {
@@ -134,7 +132,6 @@ function onConnect(wsClient: IdentifiableWebSocket) {
         winner: "YOU",
         type: "GAME_OVER",
       });
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     } else if (winner === "draw") {
       draws += 1;
       sendGameResults(player, {
