@@ -32,7 +32,6 @@ export default function GameScore() {
     setYourWins(0);
     setOpponentWins(0);
     setDraws(0);
-    console.log(draws);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOnlineMode]);
 

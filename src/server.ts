@@ -23,7 +23,6 @@ function onConnect(wsClient: IdentifiableWebSocket) {
   wsClient.isAlive = true;
   wsClient.wins = 0;
   draws = 0;
-  console.log(draws);
 
   console.log("Client connected:", wsClient.id);
 
@@ -205,7 +204,6 @@ function onConnect(wsClient: IdentifiableWebSocket) {
     }
 
     client.terminate();
-    draws = 0;
     clearInterval(interval);
     console.log("Player disconnected:", client.id);
   }
@@ -229,7 +227,6 @@ function onConnect(wsClient: IdentifiableWebSocket) {
     // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
     delete waitingRoom[wsClient.id!];
     board = Array<SquareValue>(9).fill(undefined);
-    draws = 0;
   });
 }
 
