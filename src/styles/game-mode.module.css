@@ -57,3 +57,11 @@
     0 0 40px #00f0b4,
     0 0 80px #00f0b4;
 }
+
+@media screen and (max-width: 768px) {
+  .button {
+    padding: 8px 14px;
+    margin: 4px;
+    font-size: 16px;
+  }
+}

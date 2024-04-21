@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, createContext, useContext, useState } from "react";
+import React, { PropsWithChildren, createContext, useContext, useRef, useState } from "react";
 
 import calculateWinner from "../CalculateWinner";
 import { PlayerSymbol, SquareValue } from "../../types";
@@ -19,6 +19,7 @@ const GameContext = createContext<GameContextType | undefined>(undefined);
 export function GameProvider({ children }: PropsWithChildren) {
   const [turn, setTurn] = useState<TurnType>("X");
   const [board, setBoard] = useState<SquareValue[]>(Array<SquareValue>(9).fill(undefined));
+  const firstSymbol = useRef<PlayerSymbol | null>(null);
 
   const gameInProgress = !!board.find((s) => s !== undefined);
   const winner = calculateWinner(board);
@@ -26,15 +27,18 @@ export function GameProvider({ children }: PropsWithChildren) {
   const handlePlay = (index: number, symbol: PlayerSymbol) => {
     if (winner ?? board[index]) return;
     board[index] = symbol;
-    console.log(board);
     setTurn(symbol === "X" ? "O" : "X");
+
+    if (firstSymbol.current === null) {
+      firstSymbol.current = symbol;
+    }
   };
 
   const resetGame = () => {
-    // const firstValue = board.find((value) => value !== undefined);
-    // console.log("First value: ", firstValue);
-    // setTurn(firstValue === "X" ? "O" : "X");
-    setTurn("X");
+    if (firstSymbol.current !== null) {
+      firstSymbol.current = firstSymbol.current === "X" ? "O" : "X";
+      setTurn(firstSymbol.current);
+    }
     setBoard(Array<SquareValue>(9).fill(undefined));
   };
 
