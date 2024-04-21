@@ -16,6 +16,7 @@ let currentPlayer: IdentifiableWebSocket | undefined;
 let playerA: IdentifiableWebSocket;
 let playerB: IdentifiableWebSocket;
 let draws = 0;
+let gameOver = false;
 
 function onConnect(wsClient: IdentifiableWebSocket) {
   const id = crypto.randomUUID() as string;
@@ -23,6 +24,7 @@ function onConnect(wsClient: IdentifiableWebSocket) {
   wsClient.isAlive = true;
   wsClient.wins = 0;
   draws = 0;
+  gameOver = false;
 
   console.log("Client connected:", wsClient.id);
 
@@ -72,8 +74,7 @@ function onConnect(wsClient: IdentifiableWebSocket) {
   }
 
   function handleTurn(message: ClientTurnMessage, player: IdentifiableWebSocket, opponent: IdentifiableWebSocket) {
-    const winner = checkWin(board);
-    if (board[message.position]) {
+    if (gameOver || board[message.position]) {
       return;
     }
     const isFirstTurn = board.every((c) => !c);
@@ -93,13 +94,28 @@ function onConnect(wsClient: IdentifiableWebSocket) {
       opponent.send(JSON.stringify({ type: "FIRST_CLICK", symbol: opponent.symbol }));
       console.log("First click");
     } else {
-      if (currentPlayer !== player || winner) {
+      if (currentPlayer !== player) {
         return;
       }
       currentPlayer = opponent;
     }
     board[Number(message.position)] = player.symbol;
     console.log(`set ${message.position} to ${player.symbol} for ${player.id}`);
+    const winner = checkWin(board);
+
+    sendTurnEvent(player, {
+      position: Number(message.position),
+      symbol: player.symbol!,
+      type: "SERVER_TURN",
+      yourTurn: currentPlayer === player,
+    });
+    sendTurnEvent(opponent, {
+      position: Number(message.position),
+      symbol: player.symbol!,
+      type: "SERVER_TURN",
+      yourTurn: currentPlayer === opponent,
+    });
+
     if (winner === player.symbol) {
       player.wins += 1;
       sendGameResults(player, {
@@ -149,19 +165,6 @@ function onConnect(wsClient: IdentifiableWebSocket) {
         type: "GAME_OVER",
       });
     }
-
-    sendTurnEvent(player, {
-      position: Number(message.position),
-      symbol: player.symbol!,
-      type: "SERVER_TURN",
-      yourTurn: currentPlayer === player,
-    });
-    sendTurnEvent(opponent, {
-      position: Number(message.position),
-      symbol: player.symbol!,
-      type: "SERVER_TURN",
-      yourTurn: currentPlayer === opponent,
-    });
   }
 
   function sendGameResults(player: IdentifiableWebSocket, message: GameOverMessage) {
@@ -177,9 +180,11 @@ function onConnect(wsClient: IdentifiableWebSocket) {
     const winner = CalculateWinner(squares);
     if (winner === "draw") {
       console.log("We have a draw!");
+      gameOver = true;
       return "draw";
     } else if (winner) {
-      console.log("We have a winner!");
+      console.log(`We have a winner ${winner}!`);
+      gameOver = true;
       return winner;
     }
     return undefined;
@@ -203,6 +208,7 @@ function onConnect(wsClient: IdentifiableWebSocket) {
     }
 
     client.terminate();
+    gameOver = true;
     clearInterval(interval);
     console.log("Player disconnected:", client.id);
   }
@@ -218,6 +224,7 @@ function onConnect(wsClient: IdentifiableWebSocket) {
     if (playerB) {
       playerB.send(JSON.stringify({ type: "RESET", yourTurn: playerB.symbol === "X" ? false : true }));
     }
+    gameOver = false;
     console.log("Board has been cleaned");
   }
 
