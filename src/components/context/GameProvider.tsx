@@ -28,6 +28,7 @@ export function GameProvider({ children }: PropsWithChildren) {
     if (winner ?? board[index]) return;
     board[index] = symbol;
     setTurn(symbol === "X" ? "O" : "X");
+    console.log(turn);
 
     if (firstSymbol.current === null) {
       firstSymbol.current = symbol;
@@ -38,6 +39,7 @@ export function GameProvider({ children }: PropsWithChildren) {
     if (firstSymbol.current !== null) {
       firstSymbol.current = firstSymbol.current === "X" ? "O" : "X";
       setTurn(firstSymbol.current);
+      console.log("Turn after reset: ", turn);
     }
     setBoard(Array<SquareValue>(9).fill(undefined));
   };
