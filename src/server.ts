@@ -1,5 +1,4 @@
 import WebSocket from "ws";
-import CalculateWinner from "./components/CalculateWinner";
 import { ClientMessage, ClientTurnMessage, GameOverMessage, ServerTurnMessage, SquareValue } from "./types";
 
 type IdentifiableWebSocket = typeof WebSocket.WebSocket & {
@@ -177,9 +176,35 @@ function onConnect(wsClient: IdentifiableWebSocket) {
     console.log(`Sent turn event to ${player.id}:`, message);
   }
 
+  const lines: number[][] = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+
+  function calculateWinner(squares: SquareValue[]): "draw" | SquareValue {
+    for (const line of lines) {
+      const [a, b, c] = line;
+      if (squares[a!] && squares[a!] === squares[b!] && squares[a!] === squares[c!]) {
+        return squares[a!];
+      }
+    }
+
+    if (squares.every((square) => !!square)) {
+      return "draw";
+    }
+
+    return undefined;
+  }
+
   function checkWin(board: SquareValue[]): "X" | "O" | "draw" | undefined {
     const squares = board.map((square) => (square ? square : undefined));
-    const winner = CalculateWinner(squares);
+    const winner = calculateWinner(squares);
     if (winner === "draw") {
       console.log("We have a draw!");
       gameOver = true;
