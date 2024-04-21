@@ -86,6 +86,7 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
               setOpponentWins(message.opponentWins);
               setDraws(message.draws);
               setOnlineWinner(message.winner);
+              setGameStarted(false);
               break;
             case "DISCONNECT":
               setGameStarted(false);
