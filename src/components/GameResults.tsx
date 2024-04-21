@@ -6,23 +6,23 @@ import { useOnlineContext } from "./context/OnlineProvider";
 
 export default function GameResults() {
   const { winner } = useGameContext();
-  const { onlineWinner, isOnlineMode } = useOnlineContext();
+  const { onlineWinner, isOnlineMode, clientSymbol } = useOnlineContext();
 
   let containerClass = results.container!;
   let fastFlickerClass = results.fastFlicker!;
   let flickerClass = results.flicker!;
 
   if (
-    (isOnlineMode && winner === "X" && onlineWinner === "YOU") ||
-    (isOnlineMode && winner === "O" && onlineWinner === "OPPONENT") ||
+    (isOnlineMode && clientSymbol === "X" && onlineWinner === "YOU") ||
+    (isOnlineMode && clientSymbol === "X" && onlineWinner === "OPPONENT") ||
     (!isOnlineMode && winner === "X")
   ) {
     containerClass += ` ${results.signX}`;
     fastFlickerClass += ` ${results.fastFlickerX}`;
     flickerClass += ` ${results.flickerX}`;
   } else if (
-    (isOnlineMode && winner === "O" && onlineWinner === "YOU") ||
-    (isOnlineMode && winner === "X" && onlineWinner === "OPPONENT") ||
+    (isOnlineMode && clientSymbol === "O" && onlineWinner === "YOU") ||
+    (isOnlineMode && clientSymbol === "O" && onlineWinner === "OPPONENT") ||
     (!isOnlineMode && winner === "O")
   ) {
     containerClass += ` ${results.sign}`;

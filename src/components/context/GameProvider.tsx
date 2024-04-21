@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, createContext, useCallback, useContext, useMemo, useState } from "react";
+import React, { PropsWithChildren, createContext, useContext, useState } from "react";
 
 import calculateWinner from "../CalculateWinner";
 import { PlayerSymbol, SquareValue } from "../../types";
@@ -7,7 +7,7 @@ type TurnType = "X" | "O";
 
 type GameContextType = {
   turn: TurnType;
-  currentSquares: SquareValue[];
+  board: SquareValue[];
   resetGame: VoidFunction;
   winner: SquareValue | "draw";
   gameInProgress: boolean;
@@ -18,40 +18,34 @@ const GameContext = createContext<GameContextType | undefined>(undefined);
 
 export function GameProvider({ children }: PropsWithChildren) {
   const [turn, setTurn] = useState<TurnType>("X");
-  const [history, setHistory] = useState<SquareValue[][]>([Array(9).fill(undefined)]);
+  const [board, setBoard] = useState<SquareValue[]>(Array<SquareValue>(9).fill(undefined));
 
-  const currentSquares = useMemo(() => history[history.length - 1]!, [history]);
-  const gameInProgress = useMemo(() => !!currentSquares.find((s) => s !== undefined), [currentSquares]);
-  const winner = useMemo(() => calculateWinner(currentSquares), [currentSquares]);
+  const gameInProgress = !!board.find((s) => s !== undefined);
+  const winner = calculateWinner(board);
 
-  const handlePlay = useCallback(
-    (index: number, symbol: PlayerSymbol) => {
-      if (winner) return;
-      const nextSquares = currentSquares.slice();
-      nextSquares[index] = symbol;
+  const handlePlay = (index: number, symbol: PlayerSymbol) => {
+    if (winner ?? board[index]) return;
+    board[index] = symbol;
+    console.log(board);
+    setTurn(symbol === "X" ? "O" : "X");
+  };
 
-      setHistory([...history, nextSquares]);
-      setTurn(symbol === "X" ? "O" : "X");
-    },
-    [winner, currentSquares, history],
-  );
+  const resetGame = () => {
+    // const firstValue = board.find((value) => value !== undefined);
+    // console.log("First value: ", firstValue);
+    // setTurn(firstValue === "X" ? "O" : "X");
+    setTurn("X");
+    setBoard(Array<SquareValue>(9).fill(undefined));
+  };
 
-  const resetGame = useCallback(() => {
-    setTurn(history[1]?.find((v) => !!v) === "X" ? "O" : "X");
-    setHistory([Array(9).fill(undefined)]);
-  }, [setHistory, setTurn, history]);
-
-  const contextValue: GameContextType = useMemo(
-    () => ({
-      currentSquares,
-      resetGame,
-      winner,
-      gameInProgress,
-      turn,
-      handlePlay,
-    }),
-    [currentSquares, resetGame, winner, gameInProgress, turn, handlePlay],
-  );
+  const contextValue: GameContextType = {
+    resetGame,
+    winner,
+    gameInProgress,
+    turn,
+    board,
+    handlePlay,
+  };
 
   return <GameContext.Provider value={contextValue}>{children}</GameContext.Provider>;
 }
