@@ -169,10 +169,12 @@ function onConnect(wsClient: IdentifiableWebSocket) {
 
   function sendGameResults(player: IdentifiableWebSocket, message: GameOverMessage) {
     player.send(JSON.stringify(message));
+    console.log(`Sent game results to ${player.id}:`, message);
   }
 
   function sendTurnEvent(player: IdentifiableWebSocket, message: ServerTurnMessage) {
     player.send(JSON.stringify(message));
+    console.log(`Sent turn event to ${player.id}:`, message);
   }
 
   function checkWin(board: SquareValue[]): "X" | "O" | "draw" | undefined {
