@@ -35,12 +35,6 @@ export function GameProvider({ children }: PropsWithChildren) {
   };
 
   const resetGame = () => {
-    if (firstSymbol.current !== null) {
-      firstSymbol.current = firstSymbol.current === "X" ? "O" : "X";
-      setTurn(firstSymbol.current);
-    } else {
-      setTurn("X");
-    }
     setBoard(Array<SquareValue>(9).fill(undefined));
   };
 
