@@ -19,7 +19,6 @@ const GameContext = createContext<GameContextType | undefined>(undefined);
 export function GameProvider({ children }: PropsWithChildren) {
   const [turn, setTurn] = useState<TurnType>("X");
   const [board, setBoard] = useState<SquareValue[]>(Array<SquareValue>(9).fill(undefined));
-  const firstSymbol = useRef<PlayerSymbol | null>(null);
 
   const gameInProgress = !!board.find((s) => s !== undefined);
   const winner = calculateWinner(board);
@@ -28,10 +27,6 @@ export function GameProvider({ children }: PropsWithChildren) {
     if (winner ?? board[index]) return;
     board[index] = symbol;
     setTurn(symbol === "X" ? "O" : "X");
-
-    if (firstSymbol.current === null) {
-      firstSymbol.current = symbol;
-    }
   };
 
   const resetGame = () => {
