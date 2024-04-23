@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, createContext, useContext, useRef, useState } from "react";
+import React, { PropsWithChildren, createContext, useCallback, useContext, useState } from "react";
 
 import calculateWinner from "../CalculateWinner";
 import { PlayerSymbol, SquareValue } from "../../types";
@@ -29,16 +29,17 @@ export function GameProvider({ children }: PropsWithChildren) {
     setTurn(symbol === "X" ? "O" : "X");
   };
 
-  const resetGame = () => {
+  const resetGame = useCallback(() => {
+    setTurn("X");
     setBoard(Array<SquareValue>(9).fill(undefined));
-  };
+  }, []);
 
   const contextValue: GameContextType = {
+    board,
     resetGame,
     winner,
     gameInProgress,
     turn,
-    board,
     handlePlay,
   };
 
