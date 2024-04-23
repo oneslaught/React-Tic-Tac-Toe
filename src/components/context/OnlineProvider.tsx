@@ -28,7 +28,7 @@ type OnlineContext = {
 const OnlineContext = createContext<OnlineContext | undefined>(undefined);
 
 export const OnlineProvider = ({ children }: PropsWithChildren) => {
-  const { handlePlay, resetGame } = useGameContext();
+  const { handlePlay, resetGame, setTurn } = useGameContext();
 
   const [onlineMode, setOnlineMode] = useState(false);
   const [connection, setConnection] = useState<WebSocket | undefined>(undefined);
@@ -63,6 +63,7 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
               setGameStarted(false);
               setClientSymbol("X");
               setOnlineWinner("");
+              setTurn("X");
               break;
             case "WAITING":
               setIsWaiting(true);
@@ -101,6 +102,7 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
         }
       };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [connection, handlePlay, setOnlineMode, resetGame]);
 
   const send = useCallback(
