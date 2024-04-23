@@ -78,6 +78,7 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
             case "GAME_STARTED":
               setIsWaiting(false);
               setGameStarted(true);
+              setYourTurn(true);
               setYourWins(0);
               setOpponentWins(0);
               setDraws(0);
@@ -95,6 +96,7 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
               setYourTurn(true);
               setClientSymbol("X");
               setOnlineWinner("");
+              setTurn("X");
               break;
           }
         } catch (err) {
