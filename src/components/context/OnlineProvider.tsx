@@ -82,6 +82,7 @@ export const OnlineProvider = ({ children }: PropsWithChildren) => {
               setYourWins(0);
               setOpponentWins(0);
               setDraws(0);
+              setTurn("X");
               break;
             case "GAME_OVER":
               setYourWins(message.playerWins);
